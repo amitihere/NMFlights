@@ -1,0 +1,1 @@
+“A full-stack flight tracking system that shows live flight status and stores the last 2 completed flights per flight number.”
