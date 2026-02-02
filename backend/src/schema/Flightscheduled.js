@@ -1,14 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const flightScheduledSchema = new Schema(
+const flightScheduledSchema = new mongoose.Schema(
   {
-    flightNumber: String,
-    airline: String,
-    flightDate: Date,
+    flightNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    airline: {
+      type: String,
+      required: true,
+    },
+    flightDate: {
+      type: Date,
+      required: true,
+    },
     departureTime: Date,
     arrivalTime: Date,
-    origin: String,
-    destination: String,
+    origin: {
+      type: String,
+      required: true,
+    },
+    destination: {
+      type: String,
+      required: true,
+    },
     flightStatus: {
       type: String,
       enum: ["Scheduled", "Delayed", "Cancelled", "Completed"],
@@ -20,4 +36,6 @@ const flightScheduledSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('FlightScheduled', flightScheduledSchema);
+const Scheduled = mongoose.model("FlightScheduled", flightScheduledSchema);
+
+module.exports = { Scheduled };

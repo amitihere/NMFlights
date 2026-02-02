@@ -1,4 +1,6 @@
 const axios = require("axios");
+const mongoose = require("mongoose");
+const {Scheduled} = require("../schema/Flightscheduled.js");
 //WRITE THE MONGODB QUIRES HERE FOR THE FLIGHTS.
 const BASE_URL = "https://api.aviationstack.com/v1/flights";
 
