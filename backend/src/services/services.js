@@ -1,5 +1,5 @@
 const axios = require("axios");
-
+//WRITE THE MONGODB QUIRES HERE FOR THE FLIGHTS.
 const BASE_URL = "https://api.aviationstack.com/v1/flights";
 
 const get_Flights = async (flightNumber,flightDate) => {
