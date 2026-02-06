@@ -17,5 +17,4 @@ const get_Flights = async (flightNumber,flightDate) => {
 
   return response.data.data;
 };
-
 module.exports = {get_Flights}
