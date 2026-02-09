@@ -12,9 +12,48 @@ const get_Flights = async (flightNumber,flightDate) => {
       flight_date: flightDate
     }
   });
-  console.log("data is here", response)
-  console.log("Acheieved data", response.data)
+  console.log("Acheieved data", response.data.data)
 
   return response.data.data;
 };
-module.exports = {get_Flights}
+const get_Destination = async (dept_iataCode,arr_iataCode) => {
+    const response = await axios.get(BASE_URL, {
+        params: {
+            access_key: process.env.AVIATIONSTACK_KEY,
+            dep_iata: dept_iataCode,
+            arr_iata: arr_iataCode
+        }
+    });
+    console.log("Acheieved data", response.data.data)
+
+    return response.data.data;
+}
+const get_airport_details = async (dept_arr_iata) => {
+  try{
+  const response = await axios.get(BASE_URL,{
+    params: {
+      access_key: process.env.AVIATIONSTACK_KEY,
+      dept_iata: dept_arr_iata,
+      arr_iata: dept_arr_iata
+    }
+  })
+  return response.data.data
+  }catch(err){
+    throw new Error("Error while fetching aiport details")
+  }
+}
+const get_airlines = async (airline_iata) => {
+  try{
+    const response = await axios.get(BASE_URL,{
+      params: {
+        access_key: process.env.AVIATIONSTACK_KEY,
+        airline_iata: airline_iata,
+        limit: 100
+      }
+    })
+    return response.data.data
+    }catch(err){
+      throw new Error("Error while fetching airline details")
+    }
+};
+module.exports = {get_Flights,get_Destination,get_airport_details,get_airlines}
