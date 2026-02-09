@@ -1,8 +1,35 @@
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import LiquidEther from "../animations/LiquidEther.jsx";
 import "./home.css";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const handleLoad = () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3500);
+    };
+
+    window.addEventListener("load", handleLoad);
+
+    return () => window.removeEventListener("load", handleLoad);
+  }, []);
+  if (loading) {
+    return (
+      <div className="appleLoader">
+        <div className="planeWrapper">
+          <div className="plane">✈</div>
+          <div className="progressBar">
+            <div className="progressFill"></div>
+          </div>
+          <p className="loaderText">Preparing your flight experience</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="home">
       <Navbar />
