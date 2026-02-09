@@ -3,7 +3,7 @@ const router = express.Router()
 const {validateFlightNumber} = require("../middleware/middle.js")
 const {get_flight_details,get_airport,get_flightsAiport,get_flightsAirlines,get_liveFlight} = require("../controller/controllers.js")
 const {signupMiddle,loginMiddle} = require("../middleware/userInfo.js")
-const {airportValidate,airportDetail,airlinesValidate, liveFlightValidate,} = require("../middleware/airport_middle.js")
+const {airportValidate,airportDetail,airlinesValidate} = require("../middleware/airport_middle.js")
 const {signupController,loginController} = require("../controller/userCredentials.js")
 
 router.get("/:flightNumber/:flightDate",validateFlightNumber,get_flight_details)
