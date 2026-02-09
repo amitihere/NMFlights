@@ -3,7 +3,7 @@ const {normalizeFlight} = require("../utils/normalizeFlights.js")
 
 const get_flight_details = async (req,res) => {
     try {
-        const flightNumber = req.flightNumber
+        const flightNumber = req.params.flightNumber
         const flightDate = req.params.flightDate
         const flightRequired = await get_Flights(flightNumber,flightDate)
         if (!flightRequired.length) {
@@ -60,4 +60,26 @@ const get_flightsAirlines = async (req,res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
-module.exports = {get_flight_details,get_airport,get_flightsAiport,get_flightsAirlines}
+const get_liveFlight = async (req,res) => {
+    try{
+        const flightNumber = req.flightNumber
+        const flightDate = req.params.flightDate
+        const flightRequired = await get_Flights(flightNumber,flightDate)
+        if(!flightRequired.length){
+            return res.status(404).json({message:"No flights found for the given flight number and date"})
+        }
+        const reqLivePath = flightRequired.find(flight => flight.flight_status === "active")
+        if(!reqLivePath){
+            return res.status(404).json({message:"No live flight found for the given flight number and date"})
+        }
+        return res.status(200).json({
+            message: "Live flight found",
+            live: reqLivePath.live,
+            flight: reqLivePath
+        });
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+module.exports = {get_flight_details,get_airport,get_flightsAiport,get_flightsAirlines,get_liveFlight}
