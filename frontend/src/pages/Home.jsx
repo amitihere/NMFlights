@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Features from "../components/Features";
+import Footer from "../components/Footer";
 import "./home.css";
 
 
@@ -64,13 +65,13 @@ export default function Home() {
               <p>Track real-time flight paths and routes worldwide with accurate GPS coordinates.</p>
             </div>
             <div className="infoCard">
-              <div className="cardIcon"><img src="/flights_and_hotels_71dp_F2CDA2_FILL0_wght400_GRAD0_opsz48.png"/></div>
+              <div className="cardIcon"><img src="/flights_and_hotels_71dp_F2CDA2_FILL0_wght400_GRAD0_opsz48.png" /></div>
               <h3>Global Coverage</h3>
               <p>Access departure and arrival data for airports across all timezones instantly.</p>
             </div>
             <div className="infoCard">
               <div className="cardIcon">
-                <img src="/travel_explore_71dp_F2CDA2_FILL0_wght400_GRAD0_opsz48.png"/>
+                <img src="/travel_explore_71dp_F2CDA2_FILL0_wght400_GRAD0_opsz48.png" />
               </div>
               <h3>Flight Search</h3>
               <p>Search by flight number, airline, or route to get comprehensive flight details.</p>
@@ -80,6 +81,7 @@ export default function Home() {
       </div>
 
       <Features />
+      <Footer />
     </div>
   );
 }
