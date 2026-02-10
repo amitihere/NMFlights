@@ -6,17 +6,12 @@ import "./home.css";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const handleLoad = () => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 2500);
-    };
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
 
-    window.addEventListener("load", handleLoad);
-
-    return () => window.removeEventListener("load", handleLoad);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
