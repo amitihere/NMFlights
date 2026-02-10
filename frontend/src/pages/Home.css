@@ -1,6 +1,9 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .home {
   min-height: 100vh;
-  scroll-behavior: smooth;
 }
 
 .heroSection {
@@ -11,18 +14,23 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a00 100%);
+  background-image: url('/Gemini_Generated_Image_q3nwtwq3nwtwq3nw.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   contain: layout style paint;
 }
 
-.liquidEtherBackground {
+.heroOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: linear-gradient(135deg,
+      rgba(10, 10, 10, 0.75) 0%,
+      rgba(26, 10, 0, 0.65) 100%);
   z-index: 1;
-  transform: translate3d(0, 0, 0);
 }
 
 .heroContent {
@@ -39,7 +47,7 @@
   display: inline-block;
   background: rgba(255, 102, 0, 0.15);
   border: 1px solid rgba(255, 102, 0, 0.3);
-  color: var(--primary-orange);
+  color: var(--primary-orange, #ff6600);
   padding: 0.5rem 1.2rem;
   border-radius: 50px;
   font-size: 0.9rem;
@@ -65,12 +73,115 @@
 
 .heroDescription {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0 0 3rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 2.5rem 0;
   line-height: 1.8;
-  max-width: 600px;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.trackFlightBtn {
+  background: linear-gradient(135deg, #ff6600 0%, #ff8c00 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 102, 0, 0.4);
+}
+
+.trackFlightBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(255, 102, 0, 0.6);
+}
+
+.trackFlightBtn:active {
+  transform: translateY(0);
+}
+
+.btnIcon {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.trackFlightBtn:hover .btnIcon {
+  transform: translateX(4px);
+}
+
+.learnMoreBtn {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.learnMoreBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.infoCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.infoCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.infoCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 102, 0, 0.3);
+  transform: translateY(-5px);
+}
+
+.cardIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.infoCard h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+}
+
+.infoCard p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .appleLoader {
@@ -100,9 +211,11 @@
   0% {
     transform: translateX(-30px) translateY(0px) rotate(-5deg);
   }
+
   50% {
     transform: translateX(30px) translateY(-10px) rotate(5deg);
   }
+
   100% {
     transform: translateX(-30px) translateY(0px) rotate(-5deg);
   }
@@ -121,7 +234,7 @@
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #ff6600, #ffaa55);
-  animation: loading 3.5s ease forwards;
+  animation: loading 4.5s ease forwards;
 }
 
 @keyframes loading {
@@ -146,8 +259,51 @@
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .infoCards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroDescription {
+    font-size: 1rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .trackFlightBtn,
+  .learnMoreBtn {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    width: 100%;
   }
 }
