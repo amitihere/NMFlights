@@ -1,65 +1,290 @@
-.location-container {
+.locationPage {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 2rem 1rem;
+  padding-top: 100px;
+}
+
+.locationContainer {
   max-width: 900px;
-  margin: 60px auto;
-  font-family: Arial, sans-serif;
+  margin: 0 auto;
 }
 
-.search-box {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  position: relative;
+.pageHeader {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.input-group {
-  position: relative;
-  width: 250px;
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 0.5rem 0;
 }
 
-input {
-  padding: 10px;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+.pageSubtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin: 0;
+  line-height: 1.6;
 }
 
-button {
-  padding: 10px 20px;
-  background: #2c3e50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #34495e;
-}
-
-.dropdown {
-  position: absolute;
-  top: 42px;
-  width: 100%;
+.searchCard {
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 10;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
 }
 
-.dropdown-item {
-  padding: 10px;
-  cursor: pointer;
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.dropdown-item:hover {
-  background: #f2f2f2;
+.inputWrapper {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.flight-card {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #eee;
+.inputLabel {
+  display: block;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.autocompleteField {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e0e0e0;
   border-radius: 8px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.autocompleteField:focus-within {
+  border-color: #ff6600;
+}
+
+.selectedAirport {
+  flex: 1;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.searchInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+}
+
+.searchInput::placeholder {
+  color: #95a5a6;
+}
+
+.selectedAirportInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.selectedAirportInfo::-webkit-scrollbar {
+  height: 0;
+}
+
+.airportCode {
+  background: #ff6600;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.airportName {
+  color: #2c3e50;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.clearBtn {
+  background: #ecf0f1;
+  border: none;
+  color: #7f8c8d;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.clearBtn:hover {
+  background: #bdc3c7;
+  color: #2c3e50;
+}
+
+.dropdownToggle {
+  background: #f8f9fa;
+  border: none;
+  border-left: 1px solid #e0e0e0;
+  color: #7f8c8d;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.dropdownToggle:hover {
+  background: #ecf0f1;
+  color: #ff6600;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.arrow.up {
+  transform: rotate(180deg);
+}
+
+.autocompleteDropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.autocompleteDropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.autocompleteDropdown::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.autocompleteDropdown::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 10px;
+}
+
+.autocompleteDropdown::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
+}
+
+.airportOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.airportOption:last-child {
+  border-bottom: none;
+}
+
+.airportOption:hover {
+  background: #fff5f0;
+}
+
+.optionCode {
+  background: #fff5f0;
+  color: #ff6600;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  min-width: 45px;
+  text-align: center;
+}
+
+.optionName {
+  color: #2c3e50;
+  font-size: 0.9rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.optionCity {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+}
+
+.noResults {
+  padding: 1.5rem;
+  text-align: center;
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 2rem;
+  }
+
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+
+  .inputGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .optionCity {
+    display: none;
+  }
 }
