@@ -12,6 +12,8 @@ export default function Location() {
   const [showDepartureDropdown, setShowDepartureDropdown] = useState(false);
   const [showArrivalDropdown, setShowArrivalDropdown] = useState(false);
   const [flightDate, setFlightDate] = useState("");
+  const [flights, setFlights] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
 
 
   useEffect(() => {
@@ -50,14 +52,19 @@ export default function Location() {
     setShowArrivalDropdown(false);
   };
   const handleSearch = async () => {
-    console.log(selectedDeparture.iataCode, selectedArrival.iataCode,flightDate)
+    console.log(selectedDeparture.iataCode, selectedArrival.iataCode, flightDate)
+    setSearchLoading(true);
     try {
       const respo = await axios.get(`http://localhost:3000/api/reqFlights/byAirport/${selectedDeparture.iataCode}/${selectedArrival.iataCode}/${flightDate}`)
       console.log(respo.data)
+      setFlights(respo.data);
 
     } catch (err) {
       console.log(err)
+      setFlights([]);
 
+    } finally {
+      setSearchLoading(false);
     }
 
   }
@@ -237,6 +244,147 @@ export default function Location() {
             <span className="searchBtnIcon">→</span>
           </button>
         </div>
+
+        {/* Flight Results Section */}
+        {searchLoading && (
+          <div className="resultsLoading">
+            <div className="loaderPlane">✈</div>
+            <p>Searching for flights...</p>
+          </div>
+        )}
+
+        {!searchLoading && flights.length > 0 && (
+          <div className="resultsSection">
+            <div className="resultsHeader">
+              <h2>Available Flights</h2>
+              <p className="resultsCount">{flights.length} flights found</p>
+            </div>
+
+            <div className="flightsList">
+              {flights.map((flight, index) => {
+                // Format dates and times
+                const formatTime = (dateString) => {
+                  if (!dateString) return 'N/A';
+                  const date = new Date(dateString);
+                  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                };
+
+                const formatDate = (dateString) => {
+                  if (!dateString) return 'N/A';
+                  const date = new Date(dateString);
+                  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                };
+
+                return (
+                  <div key={index} className="flightCard">
+                    {/* Flight Header */}
+                    <div className="flightHeader">
+                      <div className="airlineInfo">
+                        <h3 className="airlineName">{flight.airline.name}</h3>
+                        <div className="flightNumber">
+                          {flight.flight.iata}
+                          {flight.flight.codeshared && (
+                            <span className="codesharedBadge">Codeshared</span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flightStatus">
+                        <span className={`statusBadge status-${flight.flight_status}`}>
+                          {flight.flight_status}
+                        </span>
+                        <div className="flightDate">{formatDate(flight.flight_date)}</div>
+                      </div>
+                    </div>
+
+                    {/* Flight Route */}
+                    <div className="flightRoute">
+                      {/* Departure */}
+                      <div className="routeSection">
+                        <div className="routeLabel">Departure</div>
+                        <div className="airportCode">{flight.departure.iata}</div>
+                        <div className="airportName">{flight.departure.airport}</div>
+                        <div className="timeInfo">
+                          <div className="scheduledTime">
+                            <span className="timeLabel">Scheduled:</span>
+                            <span className="time">{formatTime(flight.departure.scheduled)}</span>
+                          </div>
+                          {flight.departure.estimated && (
+                            <div className="estimatedTime">
+                              <span className="timeLabel">Estimated:</span>
+                              <span className="time">{formatTime(flight.departure.estimated)}</span>
+                            </div>
+                          )}
+                          {flight.departure.delay && (
+                            <div className="delayInfo">Delay: {flight.departure.delay} min</div>
+                          )}
+                        </div>
+                        <div className="terminalGate">
+                          {flight.departure.terminal && (
+                            <span className="terminal">Terminal {flight.departure.terminal}</span>
+                          )}
+                          {flight.departure.gate && (
+                            <span className="gate">Gate {flight.departure.gate}</span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Flight Arrow */}
+                      <div className="routeArrow">
+                        <div className="arrowLine"></div>
+                        <div className="planeIcon">✈</div>
+                      </div>
+
+                      {/* Arrival */}
+                      <div className="routeSection">
+                        <div className="routeLabel">Arrival</div>
+                        <div className="airportCode">{flight.arrival.iata}</div>
+                        <div className="airportName">{flight.arrival.airport}</div>
+                        <div className="timeInfo">
+                          <div className="scheduledTime">
+                            <span className="timeLabel">Scheduled:</span>
+                            <span className="time">{formatTime(flight.arrival.scheduled)}</span>
+                          </div>
+                          {flight.arrival.estimated && (
+                            <div className="estimatedTime">
+                              <span className="timeLabel">Estimated:</span>
+                              <span className="time">{formatTime(flight.arrival.estimated)}</span>
+                            </div>
+                          )}
+                          {flight.arrival.delay && (
+                            <div className="delayInfo">Delay: {flight.arrival.delay} min</div>
+                          )}
+                        </div>
+                        <div className="terminalGate">
+                          {flight.arrival.terminal && (
+                            <span className="terminal">Terminal {flight.arrival.terminal}</span>
+                          )}
+                          {flight.arrival.baggage && (
+                            <span className="baggage">Baggage {flight.arrival.baggage}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {flight.flight.codeshared && (
+                      <div className="codesharedInfo">
+                        <strong>Operated by:</strong> {flight.flight.codeshared.airline_name}
+                        ({flight.flight.codeshared.flight_iata})
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {!searchLoading && flights.length === 0 && selectedDeparture && selectedArrival && flightDate && (
+          <div className="noResults">
+            <div className="noResultsIcon">✈</div>
+            <h3>No Flights Found</h3>
+            <p>No flights available for the selected route and date</p>
+          </div>
+        )}
       </div>
     </div>
   );
