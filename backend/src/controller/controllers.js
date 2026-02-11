@@ -86,7 +86,7 @@ const get_liveFlight = async (req, res) => {
 const get_info_airports = async (req, res) => {
     try {
         const airports = await AirportDataset.find()
-        if (!airports.length) {
+        if (airports.length == 0) {
             return res.status(404).json({ message: "No airports found" })
         }
         return res.status(200).json(airports)

@@ -6,8 +6,12 @@ export default function Location() {
   const [flights, setFlights] = useState([]);
   useEffect(() => {
     const loader = async () => {
-      const response = await axios.get("http://localhost:3000/flights");
-      setFlights(response.data);
+      try{
+        const response = await axios.get("http://localhost:3000/api/reqFlights/allairports");
+        setFlights(response.data);
+      }catch(err){
+        console.log(err)
+      }
     }
     loader();
   }, []);
