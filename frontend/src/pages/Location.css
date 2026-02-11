@@ -269,6 +269,65 @@
   font-size: 0.9rem;
 }
 
+.dateRow {
+  margin-bottom: 1.5rem;
+}
+
+.dateInput {
+  width: 100%;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.dateInput:focus {
+  border-color: #ff6600;
+}
+
+.searchBtn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff6600 0%, #ff8c00 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+  font-family: inherit;
+}
+
+.searchBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 102, 0, 0.5);
+  background: linear-gradient(135deg, #ff7b00 0%, #ff9a00 100%);
+}
+
+.searchBtn:active {
+  transform: translateY(0);
+}
+
+.searchBtnIcon {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.searchBtn:hover .searchBtnIcon {
+  transform: translateX(4px);
+}
+
 .locationLoader {
   min-height: 100vh;
   background: #000;

@@ -16,16 +16,14 @@ const get_Flights = async (flightNumber, flightDate) => {
 
   return response.data.data;
 };
-const get_Destination = async (dept_iataCode, arr_iataCode, flightDate) => {
+const get_Destination = async (dept_iataCode, arr_iataCode) => {
   const response = await axios.get(BASE_URL, {
     params: {
       access_key: process.env.AVIATIONSTACK_KEY,
       dep_iata: dept_iataCode,
       arr_iata: arr_iataCode,
-      flight_date: flightDate
     }
   });
-  console.log("Acheieved data", response.data.data)
 
   return response.data.data;
 }

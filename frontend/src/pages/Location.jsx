@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Location.css";
 
@@ -11,6 +11,7 @@ export default function Location() {
   const [selectedArrival, setSelectedArrival] = useState(null);
   const [showDepartureDropdown, setShowDepartureDropdown] = useState(false);
   const [showArrivalDropdown, setShowArrivalDropdown] = useState(false);
+  const [flightDate, setFlightDate] = useState("");
 
 
   useEffect(() => {
@@ -26,7 +27,6 @@ export default function Location() {
     };
     fetchAirports();
   }, []);
-
   const filterAirports = (searchTerm) => {
     if (!searchTerm) return airports;
     const term = searchTerm.toLowerCase();
@@ -49,6 +49,18 @@ export default function Location() {
     setArrivalSearch("");
     setShowArrivalDropdown(false);
   };
+  const handleSearch = async () => {
+    console.log(selectedDeparture.iataCode, selectedArrival.iataCode,flightDate)
+    try {
+      const respo = await axios.get(`http://localhost:3000/api/reqFlights/byAirport/${selectedDeparture.iataCode}/${selectedArrival.iataCode}/${flightDate}`)
+      console.log(respo.data)
+
+    } catch (err) {
+      console.log(err)
+
+    }
+
+  }
 
 
   const departureFilteredAirports = filterAirports(departureSearch);
@@ -207,6 +219,23 @@ export default function Location() {
             </div>
 
           </div>
+
+          <div className="dateRow">
+            <div className="inputWrapper">
+              <label className="inputLabel">Flight Date</label>
+              <input
+                type="date"
+                value={flightDate}
+                onChange={(e) => setFlightDate(e.target.value)}
+                className="dateInput"
+              />
+            </div>
+          </div>
+
+          <button className="searchBtn" onClick={handleSearch}>
+            <span>Search Flights</span>
+            <span className="searchBtnIcon">→</span>
+          </button>
         </div>
       </div>
     </div>

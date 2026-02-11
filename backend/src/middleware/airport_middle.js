@@ -1,11 +1,7 @@
 const airportValidate = (req, res, next) => {
-    const { dept_iataCode, arr_iataCode, flightDate } = req.params
-    if (!dept_iataCode || !arr_iataCode || !flightDate) {
+    const { dept_iataCode, arr_iataCode, flight_date } = req.params
+    if (!dept_iataCode || !arr_iataCode || !flight_date) {
         return res.status(400).json({ message: "Missing required parameters" })
-    }
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(flightDate)) {
-        return res.status(400).json({ message: "Invalid date format. Use YYYY-MM-DD" })
     }
     next()
 }
@@ -21,6 +17,7 @@ const airlinesValidate = (req, res, next) => {
     if (!airline_iata || airline_iata.trim().length == '') {
         return res.status(400).json({ message: "Missing required parameters" })
     }
+    console.log("middle ware")
     next()
 }
 module.exports = { airportValidate, airportDetail, airlinesValidate }

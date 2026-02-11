@@ -22,12 +22,13 @@ const get_flight_details = async (req, res) => {
 
 const get_airport = async (req, res) => {
     try {
-        const { dept_iataCode, arr_iataCode, flightDate } = req.params
-        const flights = await get_Destination(dept_iataCode, arr_iataCode, flightDate)
+        const { dept_iataCode, arr_iataCode, flight_date } = req.params
+        const flights = await get_Destination(dept_iataCode, arr_iataCode)
         if (!flights.length) {
             return res.status(404).json({ message: "No flights found for the given airports" });
         }
-        return res.status(200).json(flights);
+        const filteredData = flights.filter((t)=> t.flight_date == flight_date)
+        return res.status(200).json(filteredData);
     } catch (err) {
         console.log(err)
         return res.status(500).json({ message: "Internal server error" });
