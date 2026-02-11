@@ -4,6 +4,7 @@ import "./Location.css";
 
 export default function Location() {
   const [airports, setAirports] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [departureSearch, setDepartureSearch] = useState("");
   const [arrivalSearch, setArrivalSearch] = useState("");
   const [selectedDeparture, setSelectedDeparture] = useState(null);
@@ -19,6 +20,8 @@ export default function Location() {
         setAirports(response.data);
       } catch (err) {
         console.error("Error fetching airports:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchAirports();
@@ -50,6 +53,20 @@ export default function Location() {
 
   const departureFilteredAirports = filterAirports(departureSearch);
   const arrivalFilteredAirports = filterAirports(arrivalSearch);
+
+  if (loading) {
+    return (
+      <div className="locationLoader">
+        <div className="loaderContent">
+          <div className="loaderPlane">✈</div>
+          <div className="loaderBar">
+            <div className="loaderFill"></div>
+          </div>
+          <p className="loaderMsg">Loading airports...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="locationPage">

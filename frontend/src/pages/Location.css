@@ -47,7 +47,6 @@
 .inputWrapper {
   position: relative;
   min-width: 0;
-  overflow: hidden;
 }
 
 .inputLabel {
@@ -268,6 +267,68 @@
   text-align: center;
   color: #95a5a6;
   font-size: 0.9rem;
+}
+
+.locationLoader {
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderContent {
+  text-align: center;
+  color: white;
+}
+
+.loaderPlane {
+  font-size: 40px;
+  animation: loaderFly 2s ease-in-out infinite;
+  margin-bottom: 40px;
+}
+
+@keyframes loaderFly {
+  0% {
+    transform: translateX(-30px) translateY(0px) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateX(30px) translateY(-10px) rotate(5deg);
+  }
+
+  100% {
+    transform: translateX(-30px) translateY(0px) rotate(-5deg);
+  }
+}
+
+.loaderBar {
+  width: 220px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto 20px auto;
+}
+
+.loaderFill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff6600, #ffaa55);
+  animation: loaderProgress 2s ease forwards;
+}
+
+@keyframes loaderProgress {
+  to {
+    width: 100%;
+  }
+}
+
+.loaderMsg {
+  font-size: 14px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  font-weight: 300;
 }
 
 @media (max-width: 768px) {

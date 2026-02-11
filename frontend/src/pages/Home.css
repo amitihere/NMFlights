@@ -4,6 +4,7 @@ html {
 
 .home {
   min-height: 100vh;
+  background: #1a1a1a;
 }
 
 .heroSection {
