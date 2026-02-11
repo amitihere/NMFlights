@@ -2,6 +2,12 @@ import './Footer.css';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth", // remove if you want instant
+        });
+        };
 
     return (
         <footer className="footer">
@@ -29,7 +35,7 @@ export default function Footer() {
                 <div className="footer-section">
                     <h3 className="footer-heading">Quick Links</h3>
                     <ul className="footer-links">
-                        <li><a href="#home">Home</a></li>
+                        <li><a onClick={scrollToTop}>Home</a></li>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#flights">Flights</a></li>

@@ -40,38 +40,41 @@ export default function Features() {
         }
     ];
 
-    const airlines = ["Emirates", "Delta", "United Airlines", "British Airways", "Lufthansa", "Air France", "Singapore Airlines", "Qatar Airways"];
-
     const mainIntentFeatures = [
         {
             id: 1,
             title: "Live Flight Route",
             description: "Track real-time flight paths and routes with precise location data. Monitor aircraft positions, altitudes, speeds, and estimated arrival times for any flight in the sky. Get comprehensive route information including waypoints and flight corridors.",
-            icon: travelIcon
+            icon: travelIcon,
+            track: "Live Route"
         },
         {
             id: 2,
             title: "By Airlines in Timezone",
             description: "Search and filter flights by specific airlines within your timezone. Easily track international flights and view departure/arrival times adjusted to your local timezone. Perfect for monitoring flights from your favorite carriers.",
-            icon: sustainableIcon
+            icon: sustainableIcon,
+            track: "Airlines"
         },
         {
             id: 3,
             title: "Airport Departures & Arrivals",
             description: "Monitor all departures and arrivals at any airport worldwide. Get comprehensive scheduling information, gate assignments, and real-time status updates. Never miss important flight information at your local or destination airport.",
-            icon: departureIcon
+            icon: departureIcon,
+            track: "Airport Info"
         },
         {
             id: 4,
             title: "Location to Location",
             description: "Find all available flights from a specific origin to any destination. View direct flights and connecting options with detailed route information. Compare multiple airlines and flight times to plan your journey effectively.",
-            icon: bordingIcon
+            icon: bordingIcon,
+            track: "Location Search"
         },
         {
             id: 5,
             title: "Search by Flight Number",
             description: "Instantly locate any flight by entering its flight number and date. Get detailed tracking information including current position, flight status, scheduled and actual departure/arrival times, and complete flight history.",
-            icon: smartphoneIcon
+            icon: smartphoneIcon,
+            track: "Flight by Number"
         }
     ];
 
@@ -130,7 +133,7 @@ export default function Features() {
                                 <h3 className="intent-title">{feature.title}</h3>
                                 <p className="intent-description">{feature.description}</p>
                                 <button className="track-flight-btn">
-                                    <span>Track Flight</span>
+                                    <span>Track {feature.track}</span>
                                     <span className="btn-arrow">→</span>
                                 </button>
                             </div>

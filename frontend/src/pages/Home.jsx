@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
 import "./home.css";
@@ -30,7 +29,6 @@ export default function Home() {
   }
   return (
     <div className="home">
-      <Navbar />
 
       <div className="heroSection">
         <div className="heroOverlay"></div>
