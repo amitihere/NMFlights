@@ -4,7 +4,7 @@ import departureIcon from "../assets/icons/departure.gif"
 import bordingIcon from "../assets/icons/boarding-pass.gif"
 import smartphoneIcon from "../assets/icons/smartphone.gif"
 import sustainableIcon from "../assets/icons/sustainable-travel.gif"
-import airlineLogos from "../assets/airline_logos.png"
+import { Link } from "react-router-dom";
 
 export default function Features() {
     const features = [
@@ -46,6 +46,7 @@ export default function Features() {
             title: "Live Flight Route",
             description: "Track real-time flight paths and routes with precise location data. Monitor aircraft positions, altitudes, speeds, and estimated arrival times for any flight in the sky. Get comprehensive route information including waypoints and flight corridors.",
             icon: travelIcon,
+            route: "/live-route",
             track: "Live Route"
         },
         {
@@ -53,6 +54,7 @@ export default function Features() {
             title: "By Airlines in Timezone",
             description: "Search and filter flights by specific airlines within your timezone. Easily track international flights and view departure/arrival times adjusted to your local timezone. Perfect for monitoring flights from your favorite carriers.",
             icon: sustainableIcon,
+            route: "/airlines",
             track: "Airlines"
         },
         {
@@ -60,6 +62,7 @@ export default function Features() {
             title: "Airport Departures & Arrivals",
             description: "Monitor all departures and arrivals at any airport worldwide. Get comprehensive scheduling information, gate assignments, and real-time status updates. Never miss important flight information at your local or destination airport.",
             icon: departureIcon,
+            route: "/airport",
             track: "Airport Info"
         },
         {
@@ -67,6 +70,7 @@ export default function Features() {
             title: "Location to Location",
             description: "Find all available flights from a specific origin to any destination. View direct flights and connecting options with detailed route information. Compare multiple airlines and flight times to plan your journey effectively.",
             icon: bordingIcon,
+            route: "/location",
             track: "Location Search"
         },
         {
@@ -74,6 +78,7 @@ export default function Features() {
             title: "Search by Flight Number",
             description: "Instantly locate any flight by entering its flight number and date. Get detailed tracking information including current position, flight status, scheduled and actual departure/arrival times, and complete flight history.",
             icon: smartphoneIcon,
+            route: "/flight-number",
             track: "Flight by Number"
         }
     ];
@@ -133,8 +138,10 @@ export default function Features() {
                                 <h3 className="intent-title">{feature.title}</h3>
                                 <p className="intent-description">{feature.description}</p>
                                 <button className="track-flight-btn">
-                                    <span>Track {feature.track}</span>
-                                    <span className="btn-arrow">→</span>
+                                    <Link to={feature.route} className="track-flight-link">
+                                        <span>Track {feature.track}</span>
+                                        <span className="btn-arrow">→</span>
+                                    </Link>
                                 </button>
                             </div>
                             <div className="intent-image">

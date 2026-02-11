@@ -399,3 +399,10 @@
         font-size: 0.95rem;
     }
 }
+.track-flight-link{
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
