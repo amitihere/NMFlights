@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Location.css";
+import Navbar from "../components/Navbar";
 
 export default function Location() {
   const [airports, setAirports] = useState([]);
@@ -89,6 +90,7 @@ export default function Location() {
 
   return (
     <div className="locationPage">
+      <Navbar />
       <div className="locationContainer">
         <div className="pageHeader">
           <h1 className="pageTitle">Flight Search</h1>
