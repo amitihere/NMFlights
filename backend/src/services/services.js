@@ -43,12 +43,27 @@ const get_airport_details = async (iata) => {
         arr_iata: iata
       }
     });
+
     const filteredDepartures = departuresRes.data.data.filter(flight => flight.flight_date === today);
     const filteredArrivals = arrivalsRes.data.data.filter(flight => flight.flight_date === today);
 
+    console.log("Filtered departures:", filteredDepartures.length);
+    console.log("Filtered arrivals:", filteredArrivals.length);
+
+    const sortedDepartures = filteredDepartures.sort((a, b) => {
+      const timeA = new Date(a.departure.scheduled).getTime();
+      const timeB = new Date(b.departure.scheduled).getTime();
+      return timeA - timeB;
+    });
+    const sortedArrivals = filteredArrivals.sort((a, b) => {
+      const timeA = new Date(a.arrival.scheduled).getTime();
+      const timeB = new Date(b.arrival.scheduled).getTime();
+      return timeA - timeB;
+    });
+
     return {
-      departures: filteredDepartures,
-      arrivals: filteredArrivals
+      departures: sortedDepartures,
+      arrivals: sortedArrivals
     };
 
   } catch (err) {
