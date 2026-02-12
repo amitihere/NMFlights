@@ -6,12 +6,17 @@ const airportValidate = (req, res, next) => {
     next()
 }
 const airportDetail = (req, res, next) => {
-    const { dept_arr_iata } = req.params
-    if (!dept_arr_iata || dept_arr_iata.trim().length == '') {
-        return res.status(400).json({ message: "Missing required parameters" })
-    }
-    next()
-}
+  const { iata } = req.params;
+  console.log("came to middle ware")
+
+  if (!iata || iata.trim().length === 0) {
+    return res.status(400).json({
+      message: "Airport IATA code is required"
+    });
+  }
+
+  next();
+};
 const airlinesValidate = (req, res, next) => {
     const { airline_iata } = req.params
     if (!airline_iata || airline_iata.trim().length == '') {

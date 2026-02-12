@@ -53,5 +53,41 @@ const AirportDataset = mongoose.model(
   "AirportDataset",
   airportDatasetSchema
 );
+const airlinesDatasetSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-module.exports = { AirportDataset };
+    iataCode: {
+      type: String,
+      required: true,
+      uppercase: true,
+      trim: true,
+      unique: true,
+    },
+
+    icaoCode: {
+      type: String,
+      uppercase: true,
+      trim: true,
+    },
+
+    country: {
+      type: String,
+      default: "India",
+      trim: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const AirlinesDataset = mongoose.model(
+  "AirlinesDataset",
+  airlinesDatasetSchema
+);
+module.exports = { AirportDataset, AirlinesDataset };

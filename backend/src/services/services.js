@@ -27,20 +27,33 @@ const get_Destination = async (dept_iataCode, arr_iataCode) => {
 
   return response.data.data;
 }
-const get_airport_details = async (dept_arr_iata) => {
+const get_airport_details = async (iata) => {
+  console.log("fetching airport details for IATA code:", iata);
   try {
-    const response = await axios.get(BASE_URL, {
+    const departuresRes = await axios.get(BASE_URL, {
       params: {
         access_key: process.env.AVIATIONSTACK_KEY,
-        dept_iata: dept_arr_iata,
-        arr_iata: dept_arr_iata
+        dep_iata: iata
       }
-    })
-    return response.data.data
+    });
+    const arrivalsRes = await axios.get(BASE_URL, {
+      params: {
+        access_key: process.env.AVIATIONSTACK_KEY,
+        arr_iata: iata
+      }
+    });
+
+    return {
+      departures: departuresRes.data.data,
+      arrivals: arrivalsRes.data.data
+    };
+
   } catch (err) {
-    throw new Error("Error while fetching aiport details")
+    console.error("Axios error:", err.response?.data || err.message);
+    throw new Error("Error fetching airport flights");
   }
-}
+};
+
 const get_airlines = async (airline_iata) => {
   try {
     const response = await axios.get(BASE_URL, {

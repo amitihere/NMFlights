@@ -36,19 +36,29 @@ const get_airport = async (req, res) => {
 
 }
 
-const get_flightsAiport = async (req, res) => {
-    try {
-        const { dept_arr_iata } = req.params;
-        const aiportDetails = await get_airport_details(dept_arr_iata)
-        if (!aiportDetails.length) {
-            return res.status(404).json({ message: "No flights found for the given airports" })
-        }
-        return res.status(200).json(aiportDetails)
-    } catch (err) {
-        console.log(err)
-        return res.status(500).json({ message: "Internal server error" });
+const get_flightsAirport = async (req, res) => {
+  try {
+    const { iata } = req.params;
+    console.log("came to controller")
+
+    const flights = await get_airport_details(iata);
+
+    if (!flights.departures.length && !flights.arrivals.length) {
+      return res.status(404).json({
+        message: "No flights found for this airport"
+      });
     }
-}
+
+    return res.status(200).json(flights);
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      message: "Internal server error"
+    });
+  }
+};
+
 const get_flightsAirlines = async (req, res) => {
     try {
         const { airline_iata } = req.params;
@@ -96,4 +106,17 @@ const get_info_airports = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
-module.exports = { get_flight_details, get_airport, get_flightsAiport, get_flightsAirlines, get_liveFlight,get_info_airports }
+
+const get_info_airlines = async (req, res) => {
+    try{
+            const airlines = await AirlinesDataset.find()
+            if(airlines.length == 0){
+                return res.status(404).json({message: "No airlines found"})
+            }
+            return res.status(200).json(airlines)
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+module.exports = { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight,get_info_airports,get_info_airlines }

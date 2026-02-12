@@ -20,7 +20,7 @@ export default function Location() {
   useEffect(() => {
     const fetchAirports = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/reqFlights/allairports");
+        const response = await axios.get("http://localhost:3000/api/reqFlights/airports");
         setAirports(response.data);
       } catch (err) {
         console.error("Error fetching airports:", err);
@@ -56,7 +56,7 @@ export default function Location() {
     console.log(selectedDeparture.iataCode, selectedArrival.iataCode, flightDate)
     setSearchLoading(true);
     try {
-      const respo = await axios.get(`http://localhost:3000/api/reqFlights/byAirport/${selectedDeparture.iataCode}/${selectedArrival.iataCode}/${flightDate}`)
+      const respo = await axios.get(`http://localhost:3000/api/reqFlights/airports/${selectedDeparture.iataCode}/to/${selectedArrival.iataCode}/date/${flightDate}`)
       console.log(respo.data)
       setFlights(respo.data);
 
@@ -101,7 +101,6 @@ export default function Location() {
 
         <div className="searchCard">
           <div className="inputGrid">
-            {/* Departure Airport */}
             <div className="inputWrapper">
               <label className="inputLabel">Departure Airport</label>
               <div className="autocompleteField">
