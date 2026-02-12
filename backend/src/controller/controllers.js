@@ -1,6 +1,6 @@
-const { get_Flights, get_Destination, get_airport_details } = require("../services/services")
+const { get_Flights, get_Destination, get_airport_details,get_airlines } = require("../services/services")
 const { normalizeFlight } = require("../utils/normalizeFlights.js")
-const {AirportDataset} = require("../schema/AirportDataset.js")
+const {AirportDataset,AirlinesDataset} = require("../schema/AirportDataset.js")
 
 const get_flight_details = async (req, res) => {
     try {
@@ -119,4 +119,5 @@ const get_info_airlines = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
+
 module.exports = { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight,get_info_airports,get_info_airlines }

@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const { validateFlightNumber } = require("../middleware/middle.js")
-const { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight,get_info_airports,get_info_airlines } = require("../controller/controllers.js")
+const { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight,get_info_airports,get_info_airlines} = require("../controller/controllers.js")
 const { signupMiddle, loginMiddle } = require("../middleware/userInfo.js")
 const { airportValidate, airportDetail, airlinesValidate } = require("../middleware/airport_middle.js")
 const { signupController, loginController } = require("../controller/userCredentials.js")
