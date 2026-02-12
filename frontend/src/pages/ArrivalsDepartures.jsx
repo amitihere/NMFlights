@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./ArrivalsDepartures.css";
-import Navbar from "../components/NavBar";
+import NavBar from "../components/NavBar.jsx";
 
 export default function ArrivalsDepartures() {
     const [airports, setAirports] = useState([]);
@@ -9,9 +9,9 @@ export default function ArrivalsDepartures() {
     const [airportSearch, setAirportSearch] = useState("");
     const [selectedAirport, setSelectedAirport] = useState(null);
     const [showAirportDropdown, setShowAirportDropdown] = useState(false);
-    const [flights, setFlights] = useState({ departures: [], arrivals: [] });
-    const [searchLoading, setSearchLoading] = useState(false);
     const [activeTab, setActiveTab] = useState("departures");
+    const [flights, setFlights] = useState({ departures: [], arrivals: [] });
+    const [flightsLoading, setFlightsLoading] = useState(false);
 
     useEffect(() => {
         const fetchAirports = async () => {
@@ -43,166 +43,43 @@ export default function ArrivalsDepartures() {
         setAirportSearch("");
         setShowAirportDropdown(false);
 
-        setSearchLoading(true);
+        setFlightsLoading(true);
         try {
             const response = await axios.get(`http://localhost:3000/api/reqFlights/byAirports/${airport.iataCode}`);
-            const currentTime = new Date().getTime();
-
-            // Process departures: 10 recent past + 90 upcoming
-            const allDepartures = [...response.data.departures].sort((a, b) => {
-                const timeA = new Date(a.departure.scheduled).getTime();
-                const timeB = new Date(b.departure.scheduled).getTime();
-                return timeA - timeB;
-            });
-
-            const pastDepartures = allDepartures.filter(flight =>
-                new Date(flight.departure.scheduled).getTime() < currentTime
-            );
-            const futureDepartures = allDepartures.filter(flight =>
-                new Date(flight.departure.scheduled).getTime() >= currentTime
-            );
-
-            const recentPastDepartures = pastDepartures.slice(-10);
-            const upcomingDepartures = futureDepartures.slice(0, 90);
-            const finalDepartures = [...recentPastDepartures, ...upcomingDepartures];
-
-            // Process arrivals: 10 recent past + 90 upcoming
-            const allArrivals = [...response.data.arrivals].sort((a, b) => {
-                const timeA = new Date(a.arrival.scheduled).getTime();
-                const timeB = new Date(b.arrival.scheduled).getTime();
-                return timeA - timeB;
-            });
-
-            const pastArrivals = allArrivals.filter(flight =>
-                new Date(flight.arrival.scheduled).getTime() < currentTime
-            );
-            const futureArrivals = allArrivals.filter(flight =>
-                new Date(flight.arrival.scheduled).getTime() >= currentTime
-            );
-
-            const recentPastArrivals = pastArrivals.slice(-10);
-            const upcomingArrivals = futureArrivals.slice(0, 90);
-            const finalArrivals = [...recentPastArrivals, ...upcomingArrivals];
-
-            setFlights({
-                departures: finalDepartures,
-                arrivals: finalArrivals
-            });
+            setFlights(response.data);
         } catch (err) {
-            console.log(err);
+            console.error("Error fetching flights:", err);
             setFlights({ departures: [], arrivals: [] });
         } finally {
-            setSearchLoading(false);
+            setFlightsLoading(false);
         }
     };
 
-    const filteredAirports = filterAirports(airportSearch);
-
     const formatTime = (dateString) => {
-        if (!dateString) return 'N/A';
+        if (!dateString) return "N/A";
         const date = new Date(dateString);
-        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        return date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
     };
 
     const formatDate = (dateString) => {
-        if (!dateString) return 'N/A';
+        if (!dateString) return "N/A";
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
     };
 
-    const renderFlightCard = (flight, index) => (
-        <div key={index} className="flightCard">
-            <div className="flightHeader">
-                <div className="airlineInfo">
-                    <h3 className="airlineName">{flight.airline.name}</h3>
-                    <div className="flightNumber">
-                        {flight.flight.iata}
-                        {flight.flight.codeshared && (
-                            <span className="codesharedBadge">Codeshared</span>
-                        )}
-                    </div>
-                </div>
-                <div className="flightStatus">
-                    <span className={`statusBadge status-${flight.flight_status}`}>
-                        {flight.flight_status}
-                    </span>
-                    <div className="flightDate">{formatDate(flight.flight_date)}</div>
-                </div>
-            </div>
+    // Check if flight has landed
+    const hasLanded = (flight) => {
+        if (flight.flight_status === "landed") return true;
+        if (flight.arrival.actual) return true;
+        if (flight.arrival.scheduled) {
+            const scheduledTime = new Date(flight.arrival.scheduled);
+            const now = new Date();
+            return now > scheduledTime;
+        }
+        return false;
+    };
 
-            <div className="flightRoute">
-                <div className="routeSection">
-                    <div className="routeLabel">Departure</div>
-                    <div className="airportCode">{flight.departure.iata}</div>
-                    <div className="airportName">{flight.departure.airport}</div>
-                    <div className="timeInfo">
-                        <div className="scheduledTime">
-                            <span className="timeLabel">Scheduled:</span>
-                            <span className="time">{formatTime(flight.departure.scheduled)}</span>
-                        </div>
-                        {flight.departure.estimated && (
-                            <div className="estimatedTime">
-                                <span className="timeLabel">Estimated:</span>
-                                <span className="time">{formatTime(flight.departure.estimated)}</span>
-                            </div>
-                        )}
-                        {flight.departure.delay && (
-                            <div className="delayInfo">Delay: {flight.departure.delay} min</div>
-                        )}
-                    </div>
-                    <div className="terminalGate">
-                        {flight.departure.terminal && (
-                            <span className="terminal">Terminal {flight.departure.terminal}</span>
-                        )}
-                        {flight.departure.gate && (
-                            <span className="gate">Gate {flight.departure.gate}</span>
-                        )}
-                    </div>
-                </div>
-
-                <div className="routeArrow">
-                    <div className="arrowLine"></div>
-                    <div className="planeIcon">✈</div>
-                </div>
-
-                <div className="routeSection">
-                    <div className="routeLabel">Arrival</div>
-                    <div className="airportCode">{flight.arrival.iata}</div>
-                    <div className="airportName">{flight.arrival.airport}</div>
-                    <div className="timeInfo">
-                        <div className="scheduledTime">
-                            <span className="timeLabel">Scheduled:</span>
-                            <span className="time">{formatTime(flight.arrival.scheduled)}</span>
-                        </div>
-                        {flight.arrival.estimated && (
-                            <div className="estimatedTime">
-                                <span className="timeLabel">Estimated:</span>
-                                <span className="time">{formatTime(flight.arrival.estimated)}</span>
-                            </div>
-                        )}
-                        {flight.arrival.delay && (
-                            <div className="delayInfo">Delay: {flight.arrival.delay} min</div>
-                        )}
-                    </div>
-                    <div className="terminalGate">
-                        {flight.arrival.terminal && (
-                            <span className="terminal">Terminal {flight.arrival.terminal}</span>
-                        )}
-                        {flight.arrival.baggage && (
-                            <span className="baggage">Baggage {flight.arrival.baggage}</span>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            {flight.flight.codeshared && (
-                <div className="codesharedInfo">
-                    <strong>Operated by:</strong> {flight.flight.codeshared.airline_name}
-                    ({flight.flight.codeshared.flight_iata})
-                </div>
-            )}
-        </div>
-    );
+    const filteredAirports = filterAirports(airportSearch);
 
     if (loading) {
         return (
@@ -219,13 +96,13 @@ export default function ArrivalsDepartures() {
     }
 
     return (
-        <div className="locationPage">
-            <Navbar />
-            <div className="locationContainer">
+        <div className="arrDepPage">
+            <NavBar />
+            <div className="arrDepContainer">
                 <div className="pageHeader">
                     <h1 className="pageTitle">Airport Arrivals & Departures</h1>
                     <p className="pageSubtitle">
-                        View all arriving and departing flights for any airport worldwide
+                        View all arrivals and departures for any airport worldwide
                     </p>
                 </div>
 
@@ -238,37 +115,14 @@ export default function ArrivalsDepartures() {
                                     <div className="selectedAirportInfo">
                                         <span className="airportCode">{selectedAirport.iataCode}</span>
                                         <span className="airportName">{selectedAirport.name}</span>
-                                        <button
-                                            className="clearBtn"
-                                            onClick={() => {
-                                                setSelectedAirport(null);
-                                                setFlights({ departures: [], arrivals: [] });
-                                            }}
-                                        >
-                                            ×
-                                        </button>
+                                        <button className="clearBtn" onClick={() => { setSelectedAirport(null); setFlights({ departures: [], arrivals: [] }); }}>×</button>
                                     </div>
                                 ) : (
-                                    <input
-                                        type="text"
-                                        placeholder="Search airport..."
-                                        value={airportSearch}
-                                        onChange={(e) => setAirportSearch(e.target.value)}
-                                        onFocus={() => setShowAirportDropdown(true)}
-                                        className="searchInput"
-                                    />
+                                    <input type="text" placeholder="Search airport by name, code, or city..." value={airportSearch} onChange={(e) => setAirportSearch(e.target.value)} onFocus={() => setShowAirportDropdown(true)} className="searchInput" />
                                 )}
                             </div>
-                            <button
-                                className="dropdownToggle"
-                                onClick={() => {
-                                    setShowAirportDropdown(!showAirportDropdown);
-                                    setAirportSearch("");
-                                }}
-                            >
-                                <span className={`arrow ${showAirportDropdown ? "up" : "down"}`}>
-                                    ▼
-                                </span>
+                            <button className="dropdownToggle" onClick={() => { setShowAirportDropdown(!showAirportDropdown); setAirportSearch(""); }}>
+                                <span className={`arrow ${showAirportDropdown ? "up" : "down"}`}>▼</span>
                             </button>
                         </div>
 
@@ -276,16 +130,10 @@ export default function ArrivalsDepartures() {
                             <div className="autocompleteDropdown">
                                 {filteredAirports.length > 0 ? (
                                     filteredAirports.map((airport) => (
-                                        <div
-                                            key={airport._id}
-                                            className="airportOption"
-                                            onClick={() => handleAirportSelect(airport)}
-                                        >
+                                        <div key={airport._id} className="airportOption" onClick={() => handleAirportSelect(airport)}>
                                             <span className="optionCode">{airport.iataCode}</span>
                                             <span className="optionName">{airport.name}</span>
-                                            <span className="optionCity">
-                                                {airport.city}, {airport.country}
-                                            </span>
+                                            <span className="optionCity">{airport.city}, {airport.country}</span>
                                         </div>
                                     ))
                                 ) : (
@@ -296,66 +144,218 @@ export default function ArrivalsDepartures() {
                     </div>
                 </div>
 
-                {searchLoading && (
-                    <div className="resultsLoading">
-                        <div className="loaderPlane">✈</div>
-                        <p>Loading flights...</p>
-                    </div>
-                )}
-
-                {!searchLoading && selectedAirport && (flights.departures.length > 0 || flights.arrivals.length > 0) && (
-                    <div className="resultsSection">
-                        <div className="tabNavigation">
-                            <button
-                                className={`tabButton ${activeTab === "departures" ? "active" : ""}`}
-                                onClick={() => setActiveTab("departures")}
-                            >
+                {selectedAirport && (
+                    <>
+                        <div className="tabContainer">
+                            <button className={`tab ${activeTab === "departures" ? "active" : ""}`} onClick={() => setActiveTab("departures")}>
                                 Departures ({flights.departures.length})
                             </button>
-                            <button
-                                className={`tabButton ${activeTab === "arrivals" ? "active" : ""}`}
-                                onClick={() => setActiveTab("arrivals")}
-                            >
+                            <button className={`tab ${activeTab === "arrivals" ? "active" : ""}`} onClick={() => setActiveTab("arrivals")}>
                                 Arrivals ({flights.arrivals.length})
                             </button>
                         </div>
 
-                        {activeTab === "departures" && (
-                            <div className="flightsList">
-                                {flights.departures.length > 0 ? (
-                                    flights.departures.map((flight, index) => renderFlightCard(flight, index))
-                                ) : (
-                                    <div className="noFlights">
-                                        <div className="noFlightsIcon">✈</div>
-                                        <h3>No Departures</h3>
-                                        <p>No departing flights found for this airport today</p>
+                        {flightsLoading ? (
+                            <div className="resultsLoading">
+                                <div className="loaderPlane">✈</div>
+                                <p>Loading flights...</p>
+                            </div>
+                        ) : (
+                            <div className="flightsSection">
+                                {activeTab === "departures" && (
+                                    <div className="departuresSection">
+                                        {flights.departures.length > 0 ? (
+                                            <div className="flightsList">
+                                                {flights.departures.map((flight, index) => (
+                                                    <div key={index} className="flightCard">
+                                                        <div className="flightHeader">
+                                                            <div className="airlineInfo">
+                                                                <h3 className="airlineName">{flight.airline.name}</h3>
+                                                                <div className="flightNumber">
+                                                                    {flight.flight.iata}
+                                                                    {flight.flight.codeshared && <span className="codesharedBadge">Codeshared</span>}
+                                                                </div>
+                                                            </div>
+                                                            <div className="flightStatus">
+                                                                <span className={`statusBadge status-${flight.flight_status}`}>{flight.flight_status}</span>
+                                                                <div className="flightDate">{formatDate(flight.flight_date)}</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flightRoute">
+                                                            <div className="routeSection">
+                                                                <div className="routeLabel">DEPARTURE</div>
+                                                                <div className="airportCode">{flight.departure.iata}</div>
+                                                                <div className="airportName">{flight.departure.airport}</div>
+                                                                <div className="timeInfo">
+                                                                    <div className="scheduledTime">
+                                                                        <span className="timeLabel">Scheduled:</span>
+                                                                        <span className="time">{formatTime(flight.departure.scheduled)}</span>
+                                                                    </div>
+                                                                    {flight.departure.estimated && (
+                                                                        <div className="estimatedTime">
+                                                                            <span className="timeLabel">Estimated:</span>
+                                                                            <span className="time">{formatTime(flight.departure.estimated)}</span>
+                                                                        </div>
+                                                                    )}
+                                                                    {flight.departure.delay && (
+                                                                        <div className="delayInfo">Delay: {flight.departure.delay} min</div>
+                                                                    )}
+                                                                </div>
+                                                                <div className="terminalGate">
+                                                                    {flight.departure.terminal && <span className="terminal">Terminal {flight.departure.terminal}</span>}
+                                                                    {flight.departure.gate && <span className="gate">Gate {flight.departure.gate}</span>}
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="routeArrow">
+                                                                <div className="arrowLine"></div>
+                                                                <div className="planeIcon">✈</div>
+                                                            </div>
+
+                                                            <div className="routeSection">
+                                                                <div className="routeLabel">ARRIVAL</div>
+                                                                <div className="airportCode">{flight.arrival.iata}</div>
+                                                                <div className="airportName">{flight.arrival.airport}</div>
+                                                                <div className="timeInfo">
+                                                                    <div className="scheduledTime">
+                                                                        <span className="timeLabel">Scheduled:</span>
+                                                                        <span className="time">{formatTime(flight.arrival.scheduled)}</span>
+                                                                    </div>
+                                                                    {flight.arrival.estimated && (
+                                                                        <div className="estimatedTime">
+                                                                            <span className="timeLabel">Estimated:</span>
+                                                                            <span className="time">{formatTime(flight.arrival.estimated)}</span>
+                                                                        </div>
+                                                                    )}
+                                                                    {flight.arrival.delay && (
+                                                                        <div className="delayInfo">Delay: {flight.arrival.delay} min</div>
+                                                                    )}
+                                                                </div>
+                                                                <div className="terminalGate">
+                                                                    {flight.arrival.terminal && <span className="terminal">Terminal {flight.arrival.terminal}</span>}
+                                                                    {flight.arrival.baggage && <span className="baggage">Baggage {flight.arrival.baggage}</span>}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {flight.flight.codeshared && (
+                                                            <div className="codesharedInfo">
+                                                                <strong>Operated by:</strong> {flight.flight.codeshared.airline_name} ({flight.flight.codeshared.flight_iata})
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="noFlights">
+                                                <div className="noFlightsIcon">✈</div>
+                                                <h3>No Departures Found</h3>
+                                                <p>No departure flights scheduled for today</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {activeTab === "arrivals" && (
+                                    <div className="arrivalsSection">
+                                        {flights.arrivals.length > 0 ? (
+                                            <div className="flightsList">
+                                                {flights.arrivals.map((flight, index) => {
+                                                    const landed = hasLanded(flight);
+                                                    const displayStatus = landed ? "landed" : flight.flight_status;
+
+                                                    return (
+                                                        <div key={index} className="flightCard">
+                                                            <div className="flightHeader">
+                                                                <div className="airlineInfo">
+                                                                    <h3 className="airlineName">{flight.airline.name}</h3>
+                                                                    <div className="flightNumber">
+                                                                        {flight.flight.iata}
+                                                                        {flight.flight.codeshared && <span className="codesharedBadge">Codeshared</span>}
+                                                                    </div>
+                                                                </div>
+                                                                <div className="flightStatus">
+                                                                    <span className={`statusBadge status-${displayStatus}`}>{displayStatus}</span>
+                                                                    <div className="flightDate">{formatDate(flight.flight_date)}</div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="flightRoute">
+                                                                <div className="routeSection">
+                                                                    <div className="routeLabel">DEPARTURE</div>
+                                                                    <div className="airportCode">{flight.departure.iata}</div>
+                                                                    <div className="airportName">{flight.departure.airport}</div>
+                                                                    <div className="timeInfo">
+                                                                        <div className="scheduledTime">
+                                                                            <span className="timeLabel">Scheduled:</span>
+                                                                            <span className="time">{formatTime(flight.departure.scheduled)}</span>
+                                                                        </div>
+                                                                        {flight.departure.estimated && (
+                                                                            <div className="estimatedTime">
+                                                                                <span className="timeLabel">Estimated:</span>
+                                                                                <span className="time">{formatTime(flight.departure.estimated)}</span>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                    <div className="terminalGate">
+                                                                        {flight.departure.terminal && <span className="terminal">Terminal {flight.departure.terminal}</span>}
+                                                                        {flight.departure.gate && <span className="gate">Gate {flight.departure.gate}</span>}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="routeArrow">
+                                                                    <div className="arrowLine"></div>
+                                                                    <div className="planeIcon">✈</div>
+                                                                </div>
+
+                                                                <div className="routeSection">
+                                                                    <div className="routeLabel">ARRIVAL</div>
+                                                                    <div className="airportCode">{flight.arrival.iata}</div>
+                                                                    <div className="airportName">{flight.arrival.airport}</div>
+                                                                    <div className="timeInfo">
+                                                                        <div className="scheduledTime">
+                                                                            <span className="timeLabel">Scheduled:</span>
+                                                                            <span className="time">{formatTime(flight.arrival.scheduled)}</span>
+                                                                        </div>
+                                                                        {flight.arrival.estimated && (
+                                                                            <div className="estimatedTime">
+                                                                                <span className="timeLabel">Estimated:</span>
+                                                                                <span className="time">{formatTime(flight.arrival.estimated)}</span>
+                                                                            </div>
+                                                                        )}
+                                                                        {flight.arrival.delay && (
+                                                                            <div className="delayInfo">Delay: {flight.arrival.delay} min</div>
+                                                                        )}
+                                                                    </div>
+                                                                    <div className="terminalGate">
+                                                                        {flight.arrival.terminal && <span className="terminal">Terminal {flight.arrival.terminal}</span>}
+                                                                        {flight.arrival.baggage && <span className="baggage">Baggage {flight.arrival.baggage}</span>}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {flight.flight.codeshared && (
+                                                                <div className="codesharedInfo">
+                                                                    <strong>Operated by:</strong> {flight.flight.codeshared.airline_name} ({flight.flight.codeshared.flight_iata})
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        ) : (
+                                            <div className="noFlights">
+                                                <div className="noFlightsIcon">✈</div>
+                                                <h3>No Arrivals Found</h3>
+                                                <p>No arrival flights scheduled for today</p>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
                         )}
-
-                        {activeTab === "arrivals" && (
-                            <div className="flightsList">
-                                {flights.arrivals.length > 0 ? (
-                                    flights.arrivals.map((flight, index) => renderFlightCard(flight, index))
-                                ) : (
-                                    <div className="noFlights">
-                                        <div className="noFlightsIcon">✈</div>
-                                        <h3>No Arrivals</h3>
-                                        <p>No arriving flights found for this airport today</p>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {!searchLoading && selectedAirport && flights.departures.length === 0 && flights.arrivals.length === 0 && (
-                    <div className="noResults">
-                        <div className="noResultsIcon">✈</div>
-                        <h3>No Flights Found</h3>
-                        <p>No flights available for this airport today</p>
-                    </div>
+                    </>
                 )}
             </div>
         </div>
