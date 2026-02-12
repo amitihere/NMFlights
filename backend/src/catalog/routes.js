@@ -9,16 +9,15 @@ const { signupController, loginController } = require("../controller/userCredent
 router.post("/auth/signup", signupMiddle, signupController);
 router.post("/auth/login", loginMiddle, loginController);
 
-router.get("/byAirports/:iata", airportDetail, get_flightsAirport);
-router.get("/airports/:dept_iataCode/to/:arr_iataCode/date/:flight_date",airportValidate,get_airport);
-router.get("/airports",get_info_airports);
+router.get("/byAirports/:iata", airportDetail, get_flightsAirport); //done
+router.get("/airports/:dept_iataCode/to/:arr_iataCode/date/:flight_date",airportValidate,get_airport); //done
+router.get("/airports",get_info_airports); //done
 
 router.get("/flights/number/:flightNumber/date/:flightDate",validateFlightNumber,get_flight_details);
 router.get("/flights/live/:flightNumber/date/:flightDate",validateFlightNumber,get_liveFlight);
 
-router.get("/airlines/:airline_iata",airlinesValidate,get_flightsAirlines);
-router.get("/airlines",get_info_airlines);
-
+router.get("/airlines/:airline_iata",airlinesValidate,get_flightsAirlines); //done
+router.get("/airlines",get_info_airlines); //done
 
 
 module.exports = router
