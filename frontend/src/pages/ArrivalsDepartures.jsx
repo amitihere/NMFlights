@@ -43,29 +43,50 @@ export default function ArrivalsDepartures() {
         setAirportSearch("");
         setShowAirportDropdown(false);
 
-        // Fetch flights for this airport
         setSearchLoading(true);
         try {
             const response = await axios.get(`http://localhost:3000/api/reqFlights/byAirports/${airport.iataCode}`);
-            console.log(response.data);
+            const currentTime = new Date().getTime();
 
-            // Sort departures by earliest departure time
-            const sortedDepartures = [...response.data.departures].sort((a, b) => {
+            // Process departures: 10 recent past + 90 upcoming
+            const allDepartures = [...response.data.departures].sort((a, b) => {
                 const timeA = new Date(a.departure.scheduled).getTime();
                 const timeB = new Date(b.departure.scheduled).getTime();
                 return timeA - timeB;
             });
 
-            // Sort arrivals by earliest arrival time
-            const sortedArrivals = [...response.data.arrivals].sort((a, b) => {
+            const pastDepartures = allDepartures.filter(flight =>
+                new Date(flight.departure.scheduled).getTime() < currentTime
+            );
+            const futureDepartures = allDepartures.filter(flight =>
+                new Date(flight.departure.scheduled).getTime() >= currentTime
+            );
+
+            const recentPastDepartures = pastDepartures.slice(-10);
+            const upcomingDepartures = futureDepartures.slice(0, 90);
+            const finalDepartures = [...recentPastDepartures, ...upcomingDepartures];
+
+            // Process arrivals: 10 recent past + 90 upcoming
+            const allArrivals = [...response.data.arrivals].sort((a, b) => {
                 const timeA = new Date(a.arrival.scheduled).getTime();
                 const timeB = new Date(b.arrival.scheduled).getTime();
                 return timeA - timeB;
             });
 
+            const pastArrivals = allArrivals.filter(flight =>
+                new Date(flight.arrival.scheduled).getTime() < currentTime
+            );
+            const futureArrivals = allArrivals.filter(flight =>
+                new Date(flight.arrival.scheduled).getTime() >= currentTime
+            );
+
+            const recentPastArrivals = pastArrivals.slice(-10);
+            const upcomingArrivals = futureArrivals.slice(0, 90);
+            const finalArrivals = [...recentPastArrivals, ...upcomingArrivals];
+
             setFlights({
-                departures: sortedDepartures,
-                arrivals: sortedArrivals
+                departures: finalDepartures,
+                arrivals: finalArrivals
             });
         } catch (err) {
             console.log(err);
@@ -91,7 +112,6 @@ export default function ArrivalsDepartures() {
 
     const renderFlightCard = (flight, index) => (
         <div key={index} className="flightCard">
-            {/* Flight Header */}
             <div className="flightHeader">
                 <div className="airlineInfo">
                     <h3 className="airlineName">{flight.airline.name}</h3>
@@ -110,9 +130,7 @@ export default function ArrivalsDepartures() {
                 </div>
             </div>
 
-            {/* Flight Route */}
             <div className="flightRoute">
-                {/* Departure */}
                 <div className="routeSection">
                     <div className="routeLabel">Departure</div>
                     <div className="airportCode">{flight.departure.iata}</div>
@@ -142,13 +160,11 @@ export default function ArrivalsDepartures() {
                     </div>
                 </div>
 
-                {/* Flight Arrow */}
                 <div className="routeArrow">
                     <div className="arrowLine"></div>
                     <div className="planeIcon">✈</div>
                 </div>
 
-                {/* Arrival */}
                 <div className="routeSection">
                     <div className="routeLabel">Arrival</div>
                     <div className="airportCode">{flight.arrival.iata}</div>
@@ -289,7 +305,6 @@ export default function ArrivalsDepartures() {
 
                 {!searchLoading && selectedAirport && (flights.departures.length > 0 || flights.arrivals.length > 0) && (
                     <div className="resultsSection">
-                        {/* Tab Navigation */}
                         <div className="tabNavigation">
                             <button
                                 className={`tabButton ${activeTab === "departures" ? "active" : ""}`}
@@ -305,7 +320,6 @@ export default function ArrivalsDepartures() {
                             </button>
                         </div>
 
-                        {/* Departures */}
                         {activeTab === "departures" && (
                             <div className="flightsList">
                                 {flights.departures.length > 0 ? (
@@ -320,7 +334,6 @@ export default function ArrivalsDepartures() {
                             </div>
                         )}
 
-                        {/* Arrivals */}
                         {activeTab === "arrivals" && (
                             <div className="flightsList">
                                 {flights.arrivals.length > 0 ? (
