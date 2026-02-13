@@ -1,6 +1,6 @@
-const { get_Flights, get_Destination, get_airport_details,get_airlines } = require("../services/services")
+const { get_Flights, get_Destination, get_airport_details, get_airlines } = require("../services/services")
 const { normalizeFlight } = require("../utils/normalizeFlights.js")
-const {AirportDataset,AirlinesDataset} = require("../schema/AirportDataset.js")
+const { AirportDataset, AirlinesDataset } = require("../schema/AirportDataset.js")
 
 const get_flight_details = async (req, res) => {
     try {
@@ -27,7 +27,7 @@ const get_airport = async (req, res) => {
         if (!flights.length) {
             return res.status(404).json({ message: "No flights found for the given airports" });
         }
-        const filteredData = flights.filter((t)=> t.flight_date == flight_date)
+        const filteredData = flights.filter((t) => t.flight_date == flight_date)
         return res.status(200).json(filteredData);
     } catch (err) {
         console.log(err)
@@ -37,26 +37,26 @@ const get_airport = async (req, res) => {
 }
 
 const get_flightsAirport = async (req, res) => {
-  try {
-    const { iata } = req.params;
-    console.log("came to controller")
+    try {
+        const { iata } = req.params;
+        console.log("came to controller")
 
-    const flights = await get_airport_details(iata);
+        const flights = await get_airport_details(iata);
 
-    if (!flights.departures.length && !flights.arrivals.length) {
-      return res.status(404).json({
-        message: "No flights found for this airport"
-      });
+        if (!flights.departures.length && !flights.arrivals.length) {
+            return res.status(404).json({
+                message: "No flights found for this airport"
+            });
+        }
+
+        return res.status(200).json(flights);
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            message: "Internal server error"
+        });
     }
-
-    return res.status(200).json(flights);
-
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      message: "Internal server error"
-    });
-  }
 };
 
 const get_flightsAirlines = async (req, res) => {
@@ -108,16 +108,16 @@ const get_info_airports = async (req, res) => {
 }
 
 const get_info_airlines = async (req, res) => {
-    try{
-            const airlines = await AirlinesDataset.find()
-            if(airlines.length == 0){
-                return res.status(404).json({message: "No airlines found"})
-            }
-            return res.status(200).json(airlines)
-    }catch(err){
+    try {
+        const airlines = await AirlinesDataset.find()
+        if (airlines.length == 0) {
+            return res.status(404).json({ message: "No airlines found" })
+        }
+        return res.status(200).json(airlines)
+    } catch (err) {
         console.log(err)
         return res.status(500).json({ message: "Internal server error" });
     }
 }
 
-module.exports = { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight,get_info_airports,get_info_airlines }
+module.exports = { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight, get_info_airports, get_info_airlines }
