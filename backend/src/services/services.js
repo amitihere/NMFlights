@@ -29,7 +29,6 @@ const get_Destination = async (dept_iataCode, arr_iataCode) => {
   return response.data.data;
 }
 const get_airport_details = async (iata) => {
-  console.log("fetching airport details for IATA code:", iata);
   try {
     const today = new Date().toISOString().split("T")[0]
     const departuresRes = await axios.get(BASE_URL, {
@@ -47,9 +46,6 @@ const get_airport_details = async (iata) => {
 
     const filteredDepartures = departuresRes.data.data.filter(flight => flight.flight_date === today);
     const filteredArrivals = arrivalsRes.data.data.filter(flight => flight.flight_date === today);
-
-    console.log("Filtered departures:", filteredDepartures.length);
-    console.log("Filtered arrivals:", filteredArrivals.length);
 
     const sortedDepartures = filteredDepartures.sort((a, b) => {
       const timeA = new Date(a.departure.scheduled).getTime();
