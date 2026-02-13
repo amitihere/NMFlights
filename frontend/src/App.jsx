@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Location from './pages/Location'
 import ArrivalsDepartures from './pages/ArrivalsDepartures'
 import Airlines from './pages/Airlines'
+import FlightSearch from './pages/FlightSearch'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/location" element={<Location />} />
         <Route path="/arrivals-departures" element={<ArrivalsDepartures />} />
         <Route path="/airlines" element={<Airlines />} />
+        <Route path="/flight-search" element={<FlightSearch />} />
       </Routes>
     </>
   )

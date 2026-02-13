@@ -18,7 +18,7 @@ export default function Navbar() {
           <Link to="/about" className="nav-link">About</Link>
           <Link to="/flights" className="nav-link">Flights</Link>
         </div>
-        <Link to="/track" className="cta-button">
+        <Link to="/flight-search" className="cta-button">
           Track Flight
         </Link>
       </div>
