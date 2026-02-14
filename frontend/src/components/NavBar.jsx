@@ -15,8 +15,8 @@ export default function Navbar() {
         <div className="navbar-links">
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/features" className="nav-link">Features</Link>
-          <Link to="/about" className="nav-link">About</Link>
-          <Link to="/flights" className="nav-link">Flights</Link>
+          {/* <Link to="/about" className="nav-link">About</Link> */}
+          <Link to="/location" className="nav-link">Flights</Link>
         </div>
         <Link to="/flight-search" className="cta-button">
           Track Flight

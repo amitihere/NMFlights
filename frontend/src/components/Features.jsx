@@ -78,7 +78,7 @@ export default function Features() {
             title: "Search by Flight Number",
             description: "Instantly locate any flight by entering its flight number and date. Get detailed tracking information including current position, flight status, scheduled and actual departure/arrival times, and complete flight history.",
             icon: smartphoneIcon,
-            route: "/flight-number",
+            route: "/flight-search",
             track: "Flight by Number"
         }
     ];
@@ -126,7 +126,7 @@ export default function Features() {
                 </div>
             </div>
 
-            <div className="main-intent-section">
+            <div className="main-intent-section" id="main-intent">
                 <h2 className="main-intent-heading">
                     The <span className="highlight">Main Intent</span>
                 </h2>
