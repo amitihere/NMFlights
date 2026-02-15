@@ -6,6 +6,7 @@ import ArrivalsDepartures from './pages/ArrivalsDepartures'
 import Airlines from './pages/Airlines'
 import FlightSearch from './pages/FlightSearch'
 import Features from './components/Features'
+import Maping from './services/Maping'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/arrivals-departures" element={<ArrivalsDepartures />} />
         <Route path="/airlines" element={<Airlines />} />
         <Route path="/flight-search" element={<FlightSearch />} />
+        <Route path="/maps" element={<Maping />} />
       </Routes>
     </>
   )
