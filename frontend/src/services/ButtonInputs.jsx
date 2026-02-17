@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 function BottomInputs() {
   const [input1, setInput1] = useState("");

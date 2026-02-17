@@ -21,7 +21,7 @@ export default function Maping() {
   useEffect(()=> {
     const loader = async () => {
       try{
-          const respo = await axios.get(`http://localhost:3000/api/reqFlights/airports`)
+          const respo = await axios.get(`http://localhost:3000/api/reqFlights/allFlights/active`)
           console.log(respo.data)
       }catch(err){
         console.err(err)

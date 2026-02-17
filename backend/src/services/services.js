@@ -9,7 +9,6 @@ const get_Flights = async (flightNumber, flightDate) => {
     params: {
       access_key: process.env.AVIATIONSTACK_KEY,
       flight_iata: flightNumber,
-      
     }
   });
   const filteredData = response.data.data.filter(flight => flight.flight_date === flightDate);
@@ -83,4 +82,20 @@ const get_airlines = async (airline_iata) => {
     throw new Error("Error while fetching airline details")
   }
 };
-module.exports = { get_Flights, get_Destination, get_airport_details, get_airlines }
+
+const get_all_active = async () => {
+  try {
+    const response = await axios.get(BASE_URL, {
+      params: {
+        access_key: process.env.AVIATIONSTACK_KEY,
+        flight_status: "active",
+      }
+    });
+    return response.data.data;
+
+  } catch (err) {
+    console.log("Axios Error:", err.response?.data || err.message);
+    throw err;
+  }
+};
+module.exports = { get_Flights, get_Destination, get_airport_details, get_airlines,get_all_active }
