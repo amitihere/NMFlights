@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import axios from "axios";
+import ButtonInputs from "./ButtonInputs"
 import './Maping.css'
 
 function ResizeFix() {
@@ -56,7 +57,7 @@ export default function Maping() {
         </MapContainer>
       </div>
       <div>
-        
+        <ButtonInputs/>
       </div>
       
     </>
