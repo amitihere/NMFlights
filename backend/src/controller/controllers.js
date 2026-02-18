@@ -1,4 +1,4 @@
-const { get_Flights, get_Destination, get_airport_details, get_airlines,get_all_active } = require("../services/services")
+const { get_Flights, get_Destination, get_airport_details, get_airlines, get_all_active } = require("../services/services")
 const { normalizeFlight } = require("../utils/normalizeFlights.js")
 const { AirportDataset, AirlinesDataset } = require("../schema/AirportDataset.js")
 
@@ -119,15 +119,15 @@ const get_info_airlines = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
-const get_complete_active = async (req,res) => {
-    try{
+const get_complete_active = async (req, res) => {
+    try {
 
         const complete_active = await get_all_active()
-        return res.status(200).json({message:"Successfully fetch all active flights", data: complete_active})
-    }catch(err){
+        return res.status(200).json({ message: "Successfully fetch all active flights", data: complete_active })
+    } catch (err) {
         console.log(err)
         return res.status(500).json({ message: "Internal server error" });
     }
 
 }
-module.exports = { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight, get_info_airports, get_info_airlines,get_complete_active }
+module.exports = { get_flight_details, get_airport, get_flightsAirport, get_flightsAirlines, get_liveFlight, get_info_airports, get_info_airlines, get_complete_active }

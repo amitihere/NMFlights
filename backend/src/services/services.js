@@ -98,4 +98,4 @@ const get_all_active = async () => {
     throw err;
   }
 };
-module.exports = { get_Flights, get_Destination, get_airport_details, get_airlines,get_all_active }
+module.exports = { get_Flights, get_Destination, get_airport_details, get_airlines, get_all_active }

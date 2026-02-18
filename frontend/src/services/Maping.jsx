@@ -18,17 +18,17 @@ function ResizeFix() {
 }
 
 export default function Maping() {
-  useEffect(()=> {
+  useEffect(() => {
     const loader = async () => {
-      try{
-          const respo = await axios.get(`http://localhost:3000/api/reqFlights/allFlights/active`)
-          console.log(respo.data)
-      }catch(err){
+      try {
+        const respo = await axios.get(`http://localhost:3000/api/reqFlights/allFlights/active`)
+        console.log(respo.data)
+      } catch (err) {
         console.err(err)
       }
     }
     loader()
-  },[])
+  }, [])
 
   return (
     <>
@@ -39,10 +39,10 @@ export default function Maping() {
           You can view exact positions, routes, and other important flight details
           visually for better understanding.
         </p>
-        <span style={{color:"red",margin:'10px'}}>Please search for the data of flight which is active</span>
+        <span style={{ color: "red", margin: '10px' }}>Please search for the data of flight which is active</span>
       </div>
 
-      <div style={{ height: "700px", width: "90%" ,marginTop: "50px",margin: "0 auto"}}>
+      <div style={{ height: "700px", width: "90%", marginTop: "50px", margin: "0 auto" }}>
         <MapContainer
           center={[28.6139, 77.2090]}
           zoom={10}
@@ -57,9 +57,9 @@ export default function Maping() {
         </MapContainer>
       </div>
       <div>
-        <ButtonInputs/>
+        <ButtonInputs />
       </div>
-      
+
     </>
   );
 }
