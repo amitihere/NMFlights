@@ -7,6 +7,8 @@ import Airlines from './pages/Airlines'
 import FlightSearch from './pages/FlightSearch'
 import Features from './components/Features'
 import Maping from './services/Maping'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/airlines" element={<Airlines />} />
         <Route path="/flight-search" element={<FlightSearch />} />
         <Route path="/maps" element={<Maping />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </>
   )

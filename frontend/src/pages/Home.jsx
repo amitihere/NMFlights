@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 
 
 export default function Home() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,7 +55,7 @@ export default function Home() {
               <span>Track Flight</span>
               <span className="btnIcon">→</span>
             </button>
-            <button className="learnMoreBtn">Learn More</button>
+            <button className="learnMoreBtn" onClick={() => navigate('/maps')}>Learn More</button>
           </div>
 
           <div className="infoCards">
@@ -80,7 +82,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Features />
+      <section id="features"><Features /></section>
       <Footer />
     </div>
   );

@@ -1,9 +1,19 @@
 import { useState } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+const handleFeature = () => {
+  navigate("/");
+  setTimeout(() => {
+    const section = document.getElementById("features");
+    section?.scrollIntoView({ behavior: "smooth" });
+  }, 100);
+};
 
 
   return (
@@ -14,7 +24,9 @@ export default function Navbar() {
         </div>
         <div className="navbar-links">
           <Link to="/" className="nav-link">Home</Link>
-          <Link to="/features" className="nav-link">Features</Link>
+          <button className="nav-link" onClick={handleFeature}>
+            Features
+          </button>
           <Link to="/maps" className="nav-link">About</Link>
           <Link to="/location" className="nav-link">Flights</Link>
         </div>

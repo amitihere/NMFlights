@@ -37,8 +37,8 @@ export default function Footer() {
                     <ul className="footer-links">
                         <li><a onClick={scrollToTop}>Home</a></li>
                         <li><a href="#features">Features</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#flights">Flights</a></li>
+                        <li><a href="/maps">About</a></li>
+                        <li><a href="/location">Flights</a></li>
                     </ul>
                 </div>
 
