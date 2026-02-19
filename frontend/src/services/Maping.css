@@ -1,37 +1,365 @@
-.map-container {
-  height: 600px;
-  width: 80%;
-  margin: 50px auto;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* VERY IMPORTANT */
+/* ── LEAFLET REQUIRED ───────────────── */
 .leaflet-container {
   height: 100%;
   width: 100%;
 }
 
-.header {
-  width: 100%;
+/* ── PAGE SHELL ─────────────────────── */
+.about-page {
+  background-color: #1c1b1b;
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HERO ───────────────────────────── */
+.about-hero {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 20px;
-  flex-direction: column;
+  padding: 100px 24px 64px;
+  background: linear-gradient(180deg, #111010 0%, #1c1b1b 100%);
 }
 
-.header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
+.hero-badge {
+  background: rgba(252, 205, 64, 0.12);
+  border: 1px solid #fccd40;
   color: #fccd40;
-  margin: 20px
+  border-radius: 999px;
+  padding: 6px 20px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 22px;
+  animation: fadeInUp 0.6s ease both;
 }
 
-.header p {
-  max-width: 600px;
-  margin: 10px;
-  font-size: 16px;
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+  animation: fadeInUp 0.7s ease 0.1s both;
+}
+
+.hero-sub {
+  font-size: 1.25rem;
   color: #ccc;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.7s ease 0.2s both;
+}
+
+.hero-desc {
+  max-width: 680px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #aaa;
+  animation: fadeInUp 0.7s ease 0.3s both;
+}
+
+.gold {
+  color: #fccd40;
+}
+
+/* ── SECTIONS ───────────────────────── */
+.about-section {
+  padding: 72px 24px;
+}
+
+.about-section.alt-bg {
+  background-color: #141313;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.section-body {
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+/* ── FEATURE CARDS ──────────────────── */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.feat-card {
+  background: #232222;
+  border: 1px solid #2e2d2d;
+  border-radius: 12px;
+  padding: 28px 24px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feat-card:hover {
+  transform: translateY(-4px);
+  border-color: #fccd40;
+}
+
+.feat-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feat-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.feat-card p {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* ── AIRPORT TABLE ──────────────────── */
+.airport-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #2e2d2d;
+}
+
+.airport-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.airport-table thead tr {
+  background: #232222;
+  color: #fccd40;
+}
+
+.airport-table th,
+.airport-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #2a2929;
+}
+
+.airport-table tbody tr:hover {
+  background: #1f1e1e;
+}
+
+.airport-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.highlight-row {
+  background: rgba(252, 205, 64, 0.06) !important;
+}
+
+.rank-cell {
+  color: #fccd40;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.iata-badge {
+  background: rgba(252, 205, 64, 0.15);
+  color: #fccd40;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+/* ── ROUTE MAP ──────────────────────── */
+.route-map-wrap {
+  height: 460px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #2e2d2d;
+  margin-bottom: 10px;
+}
+
+.map-caption {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* Custom flight icon */
+.flight-icon {
+  font-size: 26px;
+  background: #fccd40;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 4px rgba(252, 205, 64, 0.25);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(252, 205, 64, 0.25);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(252, 205, 64, 0.08);
+  }
+}
+
+/* ── DESCRIPTION GRID ───────────────── */
+.desc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.desc-block {
+  background: #232222;
+  border: 1px solid #2e2d2d;
+  border-radius: 12px;
+  padding: 28px 24px;
+}
+
+.desc-block h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.desc-block p {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.7;
+}
+
+.desc-block ul {
+  padding-left: 18px;
+  list-style: none;
+}
+
+.desc-block ul li {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 8px;
+  line-height: 1.5;
+  padding-left: 0;
+  list-style: none;
+}
+
+/* ── FOOTER STRIP ───────────────────── */
+.about-footer-strip {
+  background: #111010;
+  border-top: 1px solid #2a2929;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 48px;
+  font-size: 13px;
+  color: #666;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ── COMMUNITY CTA ──────────────────── */
+.community-section {
+  background: linear-gradient(135deg, #141313 0%, #1f1e1e 100%);
+}
+
+.community-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.community-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.community-desc {
+  max-width: 640px;
+  font-size: 16px;
+  color: #aaa;
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+.community-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.comm-btn {
+  padding: 14px 40px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+  letter-spacing: 0.3px;
+}
+
+.comm-btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.88;
+}
+
+.login-btn {
+  background: transparent;
+  border: 2px solid #fccd40;
+  color: #fccd40;
+}
+
+.login-btn:hover {
+  background: rgba(252, 205, 64, 0.08);
+  box-shadow: 0 0 18px rgba(252, 205, 64, 0.2);
+}
+
+.signup-btn {
+  background: #fccd40;
+  color: #111;
+}
+
+.signup-btn:hover {
+  box-shadow: 0 6px 24px rgba(252, 205, 64, 0.35);
+}
+
+/* ── ANIMATIONS ─────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
