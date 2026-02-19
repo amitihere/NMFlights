@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 const BASE = 'http://localhost:3000/api/reqFlights';
 
 export default function Login() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [form, setForm] = useState({ email: '', password: '' });
     const [msg, setMsg] = useState(null);  // { type: 'success'|'error', text }
     const [loading, setLoading] = useState(false);
@@ -19,7 +21,9 @@ export default function Login() {
         setLoading(true);
         try {
             const res = await axios.post(`${BASE}/auth/login`, form);
-            setMsg({ type: 'success', text: `Welcome back, ${res.data.user?.username || 'traveler'}! ✈️` });
+            const username = res.data.user?.username || 'traveler';
+            setMsg({ type: 'success', text: `Welcome back, ${username}! ✈️` });
+            login({ username });
             setTimeout(() => navigate('/'), 1800);
         } catch (err) {
             setMsg({ type: 'error', text: err.response?.data?.message || 'Login failed. Please try again.' });

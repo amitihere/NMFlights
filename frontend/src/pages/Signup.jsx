@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 const BASE = 'http://localhost:3000/api/reqFlights';
 
 export default function Signup() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [form, setForm] = useState({ username: '', email: '', phone: '', password: '' });
     const [msg, setMsg] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -19,8 +21,9 @@ export default function Signup() {
         setLoading(true);
         try {
             await axios.post(`${BASE}/auth/signup`, form);
-            setMsg({ type: 'success', text: `Account created! Check your email for confirmation ✉️` });
-            setTimeout(() => navigate('/login'), 2000);
+            setMsg({ type: 'success', text: `Account created! Welcome aboard, ${form.username}! ✈️` });
+            login({ username: form.username });
+            setTimeout(() => navigate('/'), 2000);
         } catch (err) {
             setMsg({ type: 'error', text: err.response?.data?.message || 'Signup failed. Please try again.' });
         } finally {
