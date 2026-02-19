@@ -1,0 +1,192 @@
+/* Shared by Login.jsx and Signup.jsx */
+
+.auth-page {
+    min-height: 100vh;
+    background-color: #1c1b1b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-card {
+    background: #232222;
+    border: 1px solid #2e2d2d;
+    border-radius: 16px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 440px;
+    animation: fadeInUp 0.5s ease both;
+}
+
+.auth-back {
+    background: none;
+    border: none;
+    color: #fccd40;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    margin-bottom: 16px;
+    align-self: flex-start;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.auth-back:hover {
+    opacity: 0.7;
+}
+
+.auth-logo {
+    font-size: 2.2rem;
+    text-align: center;
+    background: rgba(252, 205, 64, 0.12);
+    border: 1px solid #fccd40;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+.auth-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.auth-sub {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+/* Messages */
+.auth-msg {
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.auth-msg.success {
+    background: rgba(72, 199, 120, 0.12);
+    border: 1px solid #48c778;
+    color: #48c778;
+}
+
+.auth-msg.error {
+    background: rgba(255, 80, 80, 0.1);
+    border: 1px solid #ff5050;
+    color: #ff5050;
+}
+
+/* Form */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.auth-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ccc;
+    letter-spacing: 0.3px;
+}
+
+.auth-field input {
+    background: #1a1919;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.auth-field input::placeholder {
+    color: #555;
+}
+
+.auth-field input:focus {
+    border-color: #fccd40;
+}
+
+/* Buttons */
+.auth-btn {
+    padding: 13px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-btn.primary {
+    background: #fccd40;
+    color: #111;
+}
+
+.auth-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.auth-btn:not(:disabled):hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+/* Switch link */
+.auth-switch {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+}
+
+.auth-link {
+    color: #fccd40;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.auth-link:hover {
+    opacity: 0.75;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
