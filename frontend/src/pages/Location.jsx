@@ -57,7 +57,7 @@ export default function Location() {
     setSearchLoading(true);
     try {
       const respo = await axios.get(`http://localhost:3000/api/reqFlights/airports/${selectedDeparture.iataCode}/to/${selectedArrival.iataCode}/date/${flightDate}`)
-      console.log(respo.data)
+      // console.log(respo.data)
       setFlights(respo.data);
 
     } catch (err) {

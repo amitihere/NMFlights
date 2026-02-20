@@ -12,7 +12,6 @@ const get_Flights = async (flightNumber, flightDate) => {
     }
   });
   const filteredData = response.data.data.filter(flight => flight.flight_date === flightDate);
-  console.log("Acheieved data", filteredData)
 
   return filteredData;
 };

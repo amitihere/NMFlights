@@ -64,6 +64,11 @@ export default function FlightSearch() {
         });
     };
 
+    const statusClass = (status) => {
+        if (!status) return "";
+        return `status status-${status.toLowerCase()}`;
+    };
+
     return (
         <div className="flightSearchPage">
             <NavBar />
@@ -117,97 +122,111 @@ export default function FlightSearch() {
 
                 {flight && !loading && (
                     <div className="flightResult">
+
+                        {/* ── Header ── */}
                         <div className="resultHeader">
-                            <h2>{flight.airline.name}</h2>
+                            <h2>{flight.airline}</h2>
                             <div className="flightMeta">
-                                <span className="flightNum">{flight.flight.iata || flight.flight.number}</span>
-                                <span className={`status status-${flight.flight_status}`}>
-                                    {flight.flight_status}
+                                <span className="flightNum">{flight.flightNumber}</span>
+                                <span className={statusClass(flight.flightStatus)}>
+                                    {flight.flightStatus}
                                 </span>
                             </div>
                         </div>
 
+                        {/* ── Route ── */}
                         <div className="flightRoute">
+                            {/* Departure */}
                             <div className="routePoint">
                                 <div className="label">DEPARTURE</div>
-                                <div className="airport">{flight.departure.airport}</div>
-                                <div className="iata">{flight.departure.iata}</div>
+                                <div className="iata">{flight.route?.from}</div>
+                                <div className="airport">{flight.departure?.airport}</div>
+
                                 <div className="timeBlock">
                                     <div className="timeRow">
                                         <span>Scheduled:</span>
-                                        <strong>{formatTime(flight.departure.scheduled)}</strong>
+                                        <strong>{formatTime(flight.departure?.scheduled)}</strong>
                                     </div>
-                                    {flight.departure.estimated && (
-                                        <div className="timeRow">
-                                            <span>Estimated:</span>
-                                            <strong>{formatTime(flight.departure.estimated)}</strong>
-                                        </div>
+                                </div>
+
+                                <div className="terminalInfo">
+                                    {flight.departure?.terminal && (
+                                        <span>Terminal {flight.departure.terminal}</span>
                                     )}
-                                    {flight.departure.actual && (
-                                        <div className="timeRow">
-                                            <span>Actual:</span>
-                                            <strong>{formatTime(flight.departure.actual)}</strong>
-                                        </div>
+                                    {flight.departure?.gate && (
+                                        <span>Gate {flight.departure.gate}</span>
                                     )}
                                 </div>
-                                {(flight.departure.terminal || flight.departure.gate) && (
-                                    <div className="terminalInfo">
-                                        {flight.departure.terminal && <span>Terminal {flight.departure.terminal}</span>}
-                                        {flight.departure.gate && <span>Gate {flight.departure.gate}</span>}
-                                    </div>
+
+                                {flight.departure?.timezone && (
+                                    <div className="timezoneTag">{flight.departure.timezone}</div>
                                 )}
                             </div>
 
                             <div className="routeArrow">→</div>
 
+                            {/* Arrival */}
                             <div className="routePoint">
                                 <div className="label">ARRIVAL</div>
-                                <div className="airport">{flight.arrival.airport}</div>
-                                <div className="iata">{flight.arrival.iata}</div>
+                                <div className="iata">{flight.route?.to}</div>
+                                <div className="airport">{flight.arrival?.airport}</div>
+
                                 <div className="timeBlock">
                                     <div className="timeRow">
                                         <span>Scheduled:</span>
-                                        <strong>{formatTime(flight.arrival.scheduled)}</strong>
+                                        <strong>{formatTime(flight.arrival?.scheduled)}</strong>
                                     </div>
-                                    {flight.arrival.estimated && (
-                                        <div className="timeRow">
-                                            <span>Estimated:</span>
-                                            <strong>{formatTime(flight.arrival.estimated)}</strong>
-                                        </div>
+                                </div>
+
+                                <div className="terminalInfo">
+                                    {flight.arrival?.terminal && (
+                                        <span>Terminal {flight.arrival.terminal}</span>
                                     )}
-                                    {flight.arrival.actual && (
-                                        <div className="timeRow">
-                                            <span>Actual:</span>
-                                            <strong>{formatTime(flight.arrival.actual)}</strong>
-                                        </div>
+                                    {flight.arrival?.gate && (
+                                        <span>Gate {flight.arrival.gate}</span>
                                     )}
                                 </div>
-                                {(flight.arrival.terminal || flight.arrival.baggage) && (
-                                    <div className="terminalInfo">
-                                        {flight.arrival.terminal && <span>Terminal {flight.arrival.terminal}</span>}
-                                        {flight.arrival.baggage && <span>Baggage {flight.arrival.baggage}</span>}
-                                    </div>
+
+                                {flight.arrival?.timezone && (
+                                    <div className="timezoneTag">{flight.arrival.timezone}</div>
                                 )}
                             </div>
                         </div>
 
+                        {/* ── Extra Details ── */}
                         <div className="flightDetails">
                             <div className="detailRow">
                                 <span>Flight Date:</span>
-                                <strong>{formatDate(flight.flight_date)}</strong>
+                                <strong>{formatDate(flight.flightDate)}</strong>
                             </div>
-                            {flight.aircraft && (
+                            <div className="detailRow">
+                                <span>Flight Number:</span>
+                                <strong>{flight.flightNumber || "N/A"}</strong>
+                            </div>
+                            <div className="detailRow">
+                                <span>Status:</span>
+                                <strong className={statusClass(flight.flightStatus)}>
+                                    {flight.flightStatus || "N/A"}
+                                </strong>
+                            </div>
+                            <div className="detailRow">
+                                <span>Airline:</span>
+                                <strong>{flight.airline || "N/A"}</strong>
+                            </div>
+                            <div className="detailRow">
+                                <span>Route:</span>
+                                <strong>{flight.route?.from} → {flight.route?.to}</strong>
+                            </div>
+                            {flight.departure?.timezone && (
                                 <div className="detailRow">
-                                    <span>Aircraft:</span>
-                                    <strong>{flight.aircraft.registration || "N/A"}</strong>
+                                    <span>Departure Timezone:</span>
+                                    <strong>{flight.departure.timezone}</strong>
                                 </div>
                             )}
-                            {flight.flight.codeshared && (
+                            {flight.arrival?.timezone && (
                                 <div className="detailRow">
-                                    <span>Operated by:</span>
-                                    <strong>
-                                        {flight.flight.codeshared.airline_name} ({flight.flight.codeshared.flight_iata})
-                                    </strong>
+                                    <span>Arrival Timezone:</span>
+                                    <strong>{flight.arrival.timezone}</strong>
                                 </div>
                             )}
                         </div>
