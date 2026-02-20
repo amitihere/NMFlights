@@ -1,4 +1,3 @@
-/* Flight Search - Black Theme with Minimal CSS */
 .flightSearchPage {
     min-height: 100vh;
     background: #000;
@@ -12,7 +11,6 @@
     margin: 0 auto;
 }
 
-/* Header */
 .searchHeader {
     text-align: center;
     margin-bottom: 3rem;
@@ -41,7 +39,6 @@
     display: inline-block;
 }
 
-/* Search Form */
 .searchForm {
     margin-bottom: 2rem;
 }
@@ -90,7 +87,6 @@
     box-shadow: 0 4px 20px rgba(255, 102, 0, 0.4);
 }
 
-/* Loading State */
 .loadingState {
     text-align: center;
     padding: 3rem;
@@ -120,7 +116,6 @@
     margin: 0;
 }
 
-/* Error State */
 .errorState {
     text-align: center;
     padding: 2rem;
@@ -140,7 +135,6 @@
     font-size: 1.1rem;
 }
 
-/* Flight Result */
 .flightResult {
     background: #1a1a1a;
     border: 1px solid #333;
@@ -209,7 +203,6 @@
     color: #fff;
 }
 
-/* Flight Route */
 .flightRoute {
     display: grid;
     grid-template-columns: 1fr auto 1fr;

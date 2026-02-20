@@ -1,8 +1,10 @@
+/* Location Page – Black & Orange Theme */
 .locationPage {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #0a0a0a;
   padding: 2rem 1rem;
   padding-top: 100px;
+  color: #e0e0e0;
 }
 
 .locationContainer {
@@ -18,22 +20,23 @@
 .pageTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #ffffff;
   margin: 0 0 0.5rem 0;
 }
 
 .pageSubtitle {
   font-size: 1.1rem;
-  color: #7f8c8d;
+  color: #a0a0a0;
   margin: 0;
   line-height: 1.6;
 }
 
 .searchCard {
-  background: white;
+  background: #141414;
+  border: 1px solid #2a2a2a;
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
   margin-bottom: 2rem;
 }
 
@@ -51,7 +54,7 @@
 
 .inputLabel {
   display: block;
-  color: #2c3e50;
+  color: #ff6600;
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -60,8 +63,8 @@
 .autocompleteField {
   display: flex;
   align-items: center;
-  background: white;
-  border: 2px solid #e0e0e0;
+  background: #1e1e1e;
+  border: 2px solid #2a2a2a;
   border-radius: 8px;
   transition: all 0.2s ease;
   overflow: hidden;
@@ -70,6 +73,7 @@
 
 .autocompleteField:focus-within {
   border-color: #ff6600;
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.15);
 }
 
 .selectedAirport {
@@ -86,13 +90,13 @@
   background: transparent;
   border: none;
   outline: none;
-  color: #2c3e50;
+  color: #e0e0e0;
   font-size: 0.95rem;
   padding: 0.75rem 1rem;
 }
 
 .searchInput::placeholder {
-  color: #95a5a6;
+  color: #555;
 }
 
 .selectedAirportInfo {
@@ -120,16 +124,16 @@
 }
 
 .airportName {
-  color: #2c3e50;
+  color: #e0e0e0;
   font-size: 0.9rem;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .clearBtn {
-  background: #ecf0f1;
+  background: #2a2a2a;
   border: none;
-  color: #7f8c8d;
+  color: #888;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -144,15 +148,15 @@
 }
 
 .clearBtn:hover {
-  background: #bdc3c7;
-  color: #2c3e50;
+  background: #ff6600;
+  color: white;
 }
 
 .dropdownToggle {
-  background: #f8f9fa;
+  background: #1a1a1a;
   border: none;
-  border-left: 1px solid #e0e0e0;
-  color: #7f8c8d;
+  border-left: 1px solid #2a2a2a;
+  color: #777;
   width: 44px;
   height: 44px;
   cursor: pointer;
@@ -163,7 +167,7 @@
 }
 
 .dropdownToggle:hover {
-  background: #ecf0f1;
+  background: #2a2a2a;
   color: #ff6600;
 }
 
@@ -181,13 +185,13 @@
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: #141414;
+  border: 1px solid #2a2a2a;
   border-radius: 8px;
   max-height: 280px;
   overflow-y: auto;
   z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   animation: slideDown 0.2s ease-out;
 }
 
@@ -208,16 +212,16 @@
 }
 
 .autocompleteDropdown::-webkit-scrollbar-track {
-  background: #f8f9fa;
+  background: #1a1a1a;
 }
 
 .autocompleteDropdown::-webkit-scrollbar-thumb {
-  background: #bdc3c7;
+  background: #3a3a3a;
   border-radius: 10px;
 }
 
 .autocompleteDropdown::-webkit-scrollbar-thumb:hover {
-  background: #95a5a6;
+  background: #ff6600;
 }
 
 .airportOption {
@@ -227,7 +231,7 @@
   padding: 0.75rem 1rem;
   cursor: pointer;
   transition: all 0.15s ease;
-  border-bottom: 1px solid #f8f9fa;
+  border-bottom: 1px solid #1e1e1e;
 }
 
 .airportOption:last-child {
@@ -235,11 +239,11 @@
 }
 
 .airportOption:hover {
-  background: #fff5f0;
+  background: #1e1e1e;
 }
 
 .optionCode {
-  background: #fff5f0;
+  background: rgba(255, 102, 0, 0.15);
   color: #ff6600;
   padding: 0.3rem 0.5rem;
   border-radius: 4px;
@@ -251,21 +255,21 @@
 }
 
 .optionName {
-  color: #2c3e50;
+  color: #e0e0e0;
   font-size: 0.9rem;
   font-weight: 500;
   flex: 1;
 }
 
 .optionCity {
-  color: #7f8c8d;
+  color: #666;
   font-size: 0.85rem;
 }
 
 .noResults {
   padding: 1.5rem;
   text-align: center;
-  color: #95a5a6;
+  color: #555;
   font-size: 0.9rem;
 }
 
@@ -275,19 +279,22 @@
 
 .dateInput {
   width: 100%;
-  background: white;
-  border: 2px solid #e0e0e0;
+  background: #1e1e1e;
+  border: 2px solid #2a2a2a;
   border-radius: 8px;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
-  color: #2c3e50;
+  color: #e0e0e0;
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s ease;
+  color-scheme: dark;
+  box-sizing: border-box;
 }
 
 .dateInput:focus {
   border-color: #ff6600;
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.15);
 }
 
 .searchBtn {
@@ -305,13 +312,13 @@
   justify-content: center;
   gap: 0.6rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(255, 102, 0, 0.35);
   font-family: inherit;
 }
 
 .searchBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 102, 0, 0.5);
+  box-shadow: 0 8px 30px rgba(255, 102, 0, 0.55);
   background: linear-gradient(135deg, #ff7b00 0%, #ff9a00 100%);
 }
 
@@ -330,7 +337,7 @@
 
 .locationLoader {
   min-height: 100vh;
-  background: #000;
+  background: #0a0a0a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -364,7 +371,7 @@
 .loaderBar {
   width: 220px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   overflow: hidden;
   margin: 0 auto 20px auto;
@@ -386,17 +393,17 @@
 .loaderMsg {
   font-size: 14px;
   letter-spacing: 1px;
-  opacity: 0.7;
+  opacity: 0.6;
   font-weight: 300;
 }
 
-/* Results Loading */
 .resultsLoading {
   text-align: center;
   padding: 3rem 2rem;
-  background: white;
+  background: #141414;
+  border: 1px solid #2a2a2a;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
 }
 
 .resultsLoading .loaderPlane {
@@ -406,12 +413,11 @@
 }
 
 .resultsLoading p {
-  color: #7f8c8d;
+  color: #888;
   font-size: 1.1rem;
   margin: 0;
 }
 
-/* Results Section */
 .resultsSection {
   margin-top: 2rem;
 }
@@ -425,48 +431,46 @@
 }
 
 .resultsHeader h2 {
-  color: #2c3e50;
+  color: #ffffff;
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
 }
 
 .resultsCount {
-  color: #7f8c8d;
+  color: #888;
   font-size: 0.95rem;
   margin: 0;
 }
 
-/* Flight List */
 .flightsList {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* Flight Card */
 .flightCard {
-  background: white;
+  background: #141414;
+  border: 1px solid #2a2a2a;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
   border-left: 4px solid #ff6600;
 }
 
 .flightCard:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 28px rgba(255, 102, 0, 0.18);
   transform: translateY(-2px);
 }
 
-/* Flight Header */
 .flightHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #f5f5f5;
+  border-bottom: 2px solid #1e1e1e;
 }
 
 .airlineInfo {
@@ -474,7 +478,7 @@
 }
 
 .airlineName {
-  color: #2c3e50;
+  color: #ffffff;
   font-size: 1.3rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
@@ -484,14 +488,14 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #7f8c8d;
+  color: #888;
   font-size: 0.95rem;
   font-weight: 600;
 }
 
 .codesharedBadge {
-  background: #e8f4ff;
-  color: #0066cc;
+  background: rgba(0, 120, 220, 0.15);
+  color: #4da3ff;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   font-size: 0.75rem;
@@ -515,36 +519,35 @@
 }
 
 .status-scheduled {
-  background: #e8f5e9;
-  color: #2e7d32;
+  background: rgba(46, 125, 50, 0.2);
+  color: #66bb6a;
 }
 
 .status-active {
-  background: #e3f2fd;
-  color: #1565c0;
+  background: rgba(21, 101, 192, 0.2);
+  color: #42a5f5;
 }
 
 .status-landed {
-  background: #f3e5f5;
-  color: #6a1b9a;
+  background: rgba(106, 27, 154, 0.2);
+  color: #ce93d8;
 }
 
 .status-cancelled {
-  background: #ffebee;
-  color: #c62828;
+  background: rgba(198, 40, 40, 0.2);
+  color: #ef5350;
 }
 
 .status-delayed {
-  background: #fff3e0;
-  color: #e65100;
+  background: rgba(255, 102, 0, 0.2);
+  color: #ff6600;
 }
 
 .flightDate {
-  color: #7f8c8d;
+  color: #666;
   font-size: 0.85rem;
 }
 
-/* Flight Route */
 .flightRoute {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -560,7 +563,7 @@
 }
 
 .routeLabel {
-  color: #95a5a6;
+  color: #555;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -569,7 +572,7 @@
 }
 
 .routeSection .airportCode {
-  background: #2c3e50;
+  background: #ff6600;
   color: white;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
@@ -581,7 +584,7 @@
 }
 
 .routeSection .airportName {
-  color: #2c3e50;
+  color: #c0c0c0;
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.4;
@@ -606,19 +609,19 @@
 }
 
 .timeLabel {
-  color: #95a5a6;
+  color: #555;
   font-size: 0.8rem;
   font-weight: 500;
 }
 
 .time {
-  color: #2c3e50;
+  color: #e0e0e0;
   font-size: 1.1rem;
   font-weight: 600;
 }
 
 .delayInfo {
-  color: #e65100;
+  color: #ff6600;
   font-size: 0.85rem;
   font-weight: 600;
   margin-top: 0.2rem;
@@ -634,15 +637,15 @@
 .terminal,
 .gate,
 .baggage {
-  background: #f5f5f5;
-  color: #2c3e50;
+  background: #1e1e1e;
+  color: #c0c0c0;
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 600;
+  border: 1px solid #2a2a2a;
 }
 
-/* Route Arrow */
 .routeArrow {
   display: flex;
   flex-direction: column;
@@ -653,7 +656,7 @@
 .arrowLine {
   width: 100px;
   height: 2px;
-  background: linear-gradient(to right, #e0e0e0, #ff6600, #e0e0e0);
+  background: linear-gradient(to right, #2a2a2a, #ff6600, #2a2a2a);
   position: relative;
 }
 
@@ -676,49 +679,49 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
-  background: white;
+  background: #141414;
   padding: 0.2rem;
 }
 
-/* Codeshared Info */
 .codesharedInfo {
-  background: #f8f9fa;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
   padding: 0.8rem 1rem;
   border-radius: 6px;
   font-size: 0.9rem;
-  color: #2c3e50;
+  color: #c0c0c0;
   margin-top: 1rem;
 }
 
 .codesharedInfo strong {
-  color: #7f8c8d;
+  color: #888;
   margin-right: 0.5rem;
 }
 
-/* No Results */
 .noResults {
   text-align: center;
   padding: 4rem 2rem;
-  background: white;
+  background: #141414;
+  border: 1px solid #2a2a2a;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
   margin-top: 2rem;
 }
 
 .noResultsIcon {
   font-size: 4rem;
-  opacity: 0.3;
+  opacity: 0.2;
   margin-bottom: 1rem;
 }
 
 .noResults h3 {
-  color: #2c3e50;
+  color: #e0e0e0;
   font-size: 1.5rem;
   margin: 0 0 0.5rem 0;
 }
 
 .noResults p {
-  color: #7f8c8d;
+  color: #666;
   font-size: 1rem;
   margin: 0;
 }
