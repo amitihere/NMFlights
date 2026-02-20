@@ -5,33 +5,20 @@ export default function Footer() {
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
-            behavior: "smooth", // remove if you want instant
+            behavior: "smooth",
         });
         };
 
     return (
         <footer className="footer">
             <div className="footer-container">
-                {/* Brand Section */}
                 <div className="footer-section footer-brand">
                     <h2 className="footer-logo">NMFlights</h2>
                     <p className="footer-tagline">
                         Track flights in real-time. Stay informed with accurate flight data from around the world.
                     </p>
-                    <div className="footer-social">
-                        <a href="#" className="social-link" aria-label="Twitter">
-                            <img src="" />
-                        </a>
-                        <a href="#" className="social-link" aria-label="GitHub">
-                            <img src="" />
-                        </a>
-                        <a href="#" className="social-link" aria-label="LinkedIn">
-                            <img src="" />
-                        </a>
-                    </div>
                 </div>
 
-                {/* Quick Links */}
                 <div className="footer-section">
                     <h3 className="footer-heading">Quick Links</h3>
                     <ul className="footer-links">
@@ -46,10 +33,9 @@ export default function Footer() {
                 <div className="footer-section">
                     <h3 className="footer-heading">Features</h3>
                     <ul className="footer-links">
-                        <li><a href="#live-tracking">Live Flight Tracking</a></li>
-                        <li><a href="#airline-search">Search by Airlines</a></li>
-                        <li><a href="#airport-info">Airport Information</a></li>
-                        <li><a href="#flight-routes">Flight Routes</a></li>
+                        <li><a href="/airlines">Search by Airlines</a></li>
+                        <li><a href="/arrivals-departures">Airport Information</a></li>
+                        <li><a href="/flight-search">Flight Routes</a></li>
                     </ul>
                 </div>
 

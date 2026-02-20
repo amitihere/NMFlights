@@ -51,7 +51,7 @@ export default function Home() {
           </p>
 
           <div className="buttonGroup">
-            <button className="trackFlightBtn">
+            <button className="trackFlightBtn" onClick={() => navigate('/flight-search')}>
               <span>Track Flight</span>
               <span className="btnIcon">→</span>
             </button>

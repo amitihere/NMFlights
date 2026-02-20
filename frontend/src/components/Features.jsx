@@ -10,30 +10,24 @@ export default function Features() {
     const features = [
         {
             id: "01",
-            icon: travelIcon,
-            title: "Live Flight Route",
-            description: "Track real-time flight paths and routes with precise location data and estimated arrival times for any aircraft in the sky."
-        },
-        {
-            id: "02",
             icon: sustainableIcon,
             title: "By Airlines in Timezone",
             description: "Search and filter flights by specific airlines within your timezone, making it easier to track international flights."
         },
         {
-            id: "03",
+            id: "02",
             icon: departureIcon,
             title: "Airport Departures & Arrivals",
             description: "Monitor all departures and arrivals at any airport worldwide with comprehensive scheduling information."
         },
         {
-            id: "04",
+            id: "03",
             icon: bordingIcon,
             title: "Location to Location",
             description: "Find all available flights from a specific origin to any destination, including direct and connecting flights."
         },
         {
-            id: "05",
+            id: "04",
             icon: smartphoneIcon,
             title: "Search by Flight Number",
             description: "Instantly locate any flight by entering its flight number and date for detailed tracking information."
@@ -43,14 +37,6 @@ export default function Features() {
     const mainIntentFeatures = [
         {
             id: 1,
-            title: "Live Flight Route",
-            description: "Track real-time flight paths and routes with precise location data. Monitor aircraft positions, altitudes, speeds, and estimated arrival times for any flight in the sky. Get comprehensive route information including waypoints and flight corridors.",
-            icon: travelIcon,
-            route: "/live-route",
-            track: "Live Route"
-        },
-        {
-            id: 2,
             title: "By Airlines in Timezone",
             description: "Search and filter flights by specific airlines within your timezone. Easily track international flights and view departure/arrival times adjusted to your local timezone. Perfect for monitoring flights from your favorite carriers.",
             icon: sustainableIcon,
@@ -58,15 +44,15 @@ export default function Features() {
             track: "Airlines"
         },
         {
-            id: 3,
+            id: 2,
             title: "Airport Departures & Arrivals",
             description: "Monitor all departures and arrivals at any airport worldwide. Get comprehensive scheduling information, gate assignments, and real-time status updates. Never miss important flight information at your local or destination airport.",
             icon: departureIcon,
-            route: "/airport",
+            route: "/arrivals-departures",
             track: "Airport Info"
         },
         {
-            id: 4,
+            id: 3,
             title: "Location to Location",
             description: "Find all available flights from a specific origin to any destination. View direct flights and connecting options with detailed route information. Compare multiple airlines and flight times to plan your journey effectively.",
             icon: bordingIcon,
@@ -74,7 +60,7 @@ export default function Features() {
             track: "Location Search"
         },
         {
-            id: 5,
+            id: 4,
             title: "Search by Flight Number",
             description: "Instantly locate any flight by entering its flight number and date. Get detailed tracking information including current position, flight status, scheduled and actual departure/arrival times, and complete flight history.",
             icon: smartphoneIcon,

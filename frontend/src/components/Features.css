@@ -44,6 +44,7 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     animation: fadeIn 1s ease-out 0.3s both;
+    margin: 20px
 }
 
 .feature-card {
