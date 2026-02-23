@@ -92,6 +92,15 @@ export default function Airlines() {
                     <p className="pageSubtitle">
                         Search for active flights by airline with real-time data
                     </p>
+                    <div>
+                        <h3 style={{ color: '#ca2929ff' }}>
+                            User Information
+                        </h3>
+                        <p className="pageSubtitle">
+                            You will only be able to search flights which are available in real-time, to check the api you can search any available airline of your choice.
+                        </p>
+                        <p style={{ fontWeight: 'bold',color: '#b4b1b1ff' }}> sorry for the inconvenience caused as the complete data cannot be viewed due to the limitations of the api.</p>
+                    </div>
                 </div>
 
                 <div className="searchCard">

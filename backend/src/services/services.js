@@ -28,37 +28,27 @@ const get_Destination = async (dept_iataCode, arr_iataCode) => {
 }
 const get_airport_details = async (iata) => {
   try {
-    const today = new Date().toISOString().split("T")[0]
     const departuresRes = await axios.get(BASE_URL, {
       params: {
         access_key: process.env.AVIATIONSTACK_KEY,
         dep_iata: iata,
+        limit: 100,
       }
     });
     const arrivalsRes = await axios.get(BASE_URL, {
       params: {
         access_key: process.env.AVIATIONSTACK_KEY,
-        arr_iata: iata
+        arr_iata: iata,
+        limit: 100,
       }
     });
 
-    const filteredDepartures = departuresRes.data.data.filter(flight => flight.flight_date === today);
-    const filteredArrivals = arrivalsRes.data.data.filter(flight => flight.flight_date === today);
-
-    const sortedDepartures = filteredDepartures.sort((a, b) => {
-      const timeA = new Date(a.departure.scheduled).getTime();
-      const timeB = new Date(b.departure.scheduled).getTime();
-      return timeA - timeB;
-    });
-    const sortedArrivals = filteredArrivals.sort((a, b) => {
-      const timeA = new Date(a.arrival.scheduled).getTime();
-      const timeB = new Date(b.arrival.scheduled).getTime();
-      return timeA - timeB;
-    });
+    const departures = departuresRes.data?.data || [];
+    const arrivals = arrivalsRes.data?.data || [];
 
     return {
-      departures: sortedDepartures,
-      arrivals: sortedArrivals
+      departures,
+      arrivals
     };
 
   } catch (err) {

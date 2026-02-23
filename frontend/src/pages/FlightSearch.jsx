@@ -81,6 +81,14 @@ export default function FlightSearch() {
                     <p className="apiNotice">
                         ⚠️ Please enter today's or tomorrow's date only. The API does not support dates beyond that.
                     </p>
+                              <div style={{marginTop: '20px'}}>
+            <h3 style={{color: '#ca2929ff'}}>
+              User Information
+            </h3>
+            <p className="pageSubtitle">
+              You will only be able to search flights which are available in real-time, to check the api you can search, flight number - 6E2062 & flight date - today/yesterday/tommorow date
+            </p>
+          </div>
                 </div>
 
                 <form className="searchForm" onSubmit={handleSearch}>

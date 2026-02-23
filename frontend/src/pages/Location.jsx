@@ -94,9 +94,17 @@ export default function Location() {
       <div className="locationContainer">
         <div className="pageHeader">
           <h1 className="pageTitle">Flight Search</h1>
-          <p className="pageSubtitle">
+          <p className="pageSubtitle" style={{fontSize: '16px'}}>
             Search for flights between any airports worldwide with real-time data
           </p>
+          <div style={{marginTop: '20px'}}>
+            <h3 style={{color: '#ca2929ff'}}>
+              User Information
+            </h3>
+            <p className="pageSubtitle">
+              You will only be able to search direct flights which are available in real-time, to check the api you can search, Departure - DEL & Arrival - BOM, flight date - today's date
+            </p>
+          </div>
         </div>
 
         <div className="searchCard">

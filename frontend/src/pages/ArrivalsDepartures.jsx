@@ -104,6 +104,14 @@ export default function ArrivalsDepartures() {
                     <p className="pageSubtitle">
                         View all arrivals and departures for any airport worldwide
                     </p>
+                                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                        <h3 style={{ color: '#ca2929ff' }}>
+                            User Information
+                        </h3>
+                        <p className="pageSubtitle">
+                            You will only be able to search flights which are available in real-time, to check the api you can search any airport of your choice.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="searchCard">

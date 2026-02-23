@@ -25,7 +25,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-logo">
+        <div className="navbar-logo" onClick={()=> navigate("/")}>
           NMFlights
         </div>
         <div className="navbar-links">
