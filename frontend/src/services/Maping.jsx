@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavBar";
 import "./Maping.css";
 
 // Fix Leaflet default icon paths broken by bundlers
@@ -102,7 +102,6 @@ export default function Maping() {
       </section>
 
 
-      {/* ── TOP 10 BUSIEST AIRPORTS ──────────────────────── */}
       <section className="about-section alt-bg">
         <div className="section-inner">
           <h2 className="section-title">
@@ -140,7 +139,6 @@ export default function Maping() {
         </div>
       </section>
 
-      {/* ── DEL → BOM LIVE MAP ───────────────────────────── */}
       <section className="about-section">
         <div className="section-inner">
           <h2 className="section-title">
@@ -202,7 +200,6 @@ export default function Maping() {
         </div>
       </section>
 
-      {/* ── APP DESCRIPTION ──────────────────────────────── */}
       <section className="about-section alt-bg">
         <div className="section-inner">
           <h2 className="section-title">

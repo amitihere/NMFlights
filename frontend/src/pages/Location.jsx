@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Location.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavBar";
 
 export default function Location() {
   const [airports, setAirports] = useState([]);
@@ -15,12 +15,13 @@ export default function Location() {
   const [flightDate, setFlightDate] = useState("");
   const [flights, setFlights] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
+  const API = process.env.REACT_APP_API_URL;
 
 
   useEffect(() => {
     const fetchAirports = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/reqFlights/airports");
+        const response = await axios.get(`${API}/api/reqFlights/airports`);
         setAirports(response.data);
       } catch (err) {
         console.error("Error fetching airports:", err);
@@ -56,7 +57,7 @@ export default function Location() {
     console.log(selectedDeparture.iataCode, selectedArrival.iataCode, flightDate)
     setSearchLoading(true);
     try {
-      const respo = await axios.get(`http://localhost:3000/api/reqFlights/airports/${selectedDeparture.iataCode}/to/${selectedArrival.iataCode}/date/${flightDate}`)
+      const respo = await axios.get(`${API}/api/reqFlights/airports/${selectedDeparture.iataCode}/to/${selectedArrival.iataCode}/date/${flightDate}`)
       // console.log(respo.data)
       setFlights(respo.data);
 

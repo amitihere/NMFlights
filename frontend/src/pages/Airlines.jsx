@@ -11,11 +11,11 @@ export default function Airlines() {
     const [showAirlineDropdown, setShowAirlineDropdown] = useState(false);
     const [flights, setFlights] = useState([]);
     const [flightsLoading, setFlightsLoading] = useState(false);
-
+    const API = process.env.REACT_APP_API_URL;
     useEffect(() => {
         const fetchAirlines = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/reqFlights/airlines");
+                const response = await axios.get(`${API}/api/reqFlights/airlines`);
                 setAirlines(response.data);
             } catch (err) {
                 console.error("Error fetching airlines:", err);
@@ -43,7 +43,7 @@ export default function Airlines() {
 
         setFlightsLoading(true);
         try {
-            const response = await axios.get(`http://localhost:3000/api/reqFlights/airlines/${airline.iataCode}`);
+            const response = await axios.get(`${API}/api/reqFlights/airlines/${airline.iataCode}`);
             // Get only top 30 flights
             const top30Flights = response.data.slice(0, 30);
             setFlights(top30Flights);

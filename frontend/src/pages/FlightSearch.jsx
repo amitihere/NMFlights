@@ -9,6 +9,7 @@ export default function FlightSearch() {
     const [flight, setFlight] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const API = process.env.REACT_APP_API_URL;
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -24,7 +25,7 @@ export default function FlightSearch() {
 
         try {
             const response = await axios.get(
-                `http://localhost:3000/api/reqFlights/flights/number/${flightNumber}/date/${flightDate}`
+                `${API}/api/reqFlights/flights/number/${flightNumber}/date/${flightDate}`
             );
             setFlight(response.data);
         } catch (err) {

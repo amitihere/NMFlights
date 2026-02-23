@@ -3,8 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
-
-const BASE = 'http://localhost:3000/api/reqFlights';
+const API = process.env.REACT_APP_API_URL;
+const BASE = `${API}/api/reqFlights`;
 
 export default function Signup() {
     const navigate = useNavigate();

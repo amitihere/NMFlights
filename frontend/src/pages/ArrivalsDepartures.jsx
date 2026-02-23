@@ -12,11 +12,12 @@ export default function ArrivalsDepartures() {
     const [activeTab, setActiveTab] = useState("departures");
     const [flights, setFlights] = useState({ departures: [], arrivals: [] });
     const [flightsLoading, setFlightsLoading] = useState(false);
+    const API = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchAirports = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/reqFlights/airports");
+                const response = await axios.get(`${API}/api/reqFlights/airports`);
                 setAirports(response.data);
             } catch (err) {
                 console.error("Error fetching airports:", err);
@@ -45,7 +46,7 @@ export default function ArrivalsDepartures() {
 
         setFlightsLoading(true);
         try {
-            const response = await axios.get(`http://localhost:3000/api/reqFlights/byAirports/${airport.iataCode}`);
+            const response = await axios.get(`${API}/api/reqFlights/byAirports/${airport.iataCode}`);
             setFlights(response.data);
         } catch (err) {
             console.error("Error fetching flights:", err);
