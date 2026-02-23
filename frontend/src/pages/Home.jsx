@@ -3,7 +3,7 @@ import Navbar from "../components/NavBar";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import "./home.css";
+import "./Home.css";
 
 
 export default function Home() {
