@@ -15,7 +15,7 @@ export default function Location() {
   const [flightDate, setFlightDate] = useState("");
   const [flights, setFlights] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
-  const API = process.env.REACT_APP_API_URL;
+  const API = import.meta.env.VITE_API_URL;
 
 
   useEffect(() => {
@@ -95,11 +95,11 @@ export default function Location() {
       <div className="locationContainer">
         <div className="pageHeader">
           <h1 className="pageTitle">Flight Search</h1>
-          <p className="pageSubtitle" style={{fontSize: '16px'}}>
+          <p className="pageSubtitle" style={{ fontSize: '16px' }}>
             Search for flights between any airports worldwide with real-time data
           </p>
-          <div style={{marginTop: '20px'}}>
-            <h3 style={{color: '#ca2929ff'}}>
+          <div style={{ marginTop: '20px' }}>
+            <h3 style={{ color: '#ca2929ff' }}>
               User Information
             </h3>
             <p className="pageSubtitle">

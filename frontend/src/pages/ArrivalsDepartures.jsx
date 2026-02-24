@@ -12,7 +12,7 @@ export default function ArrivalsDepartures() {
     const [activeTab, setActiveTab] = useState("departures");
     const [flights, setFlights] = useState({ departures: [], arrivals: [] });
     const [flightsLoading, setFlightsLoading] = useState(false);
-    const API = process.env.REACT_APP_API_URL;
+    const API = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         const fetchAirports = async () => {
@@ -105,7 +105,7 @@ export default function ArrivalsDepartures() {
                     <p className="pageSubtitle">
                         View all arrivals and departures for any airport worldwide
                     </p>
-                                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                    <div style={{ marginTop: '20px', textAlign: 'center' }}>
                         <h3 style={{ color: '#ca2929ff' }}>
                             User Information
                         </h3>

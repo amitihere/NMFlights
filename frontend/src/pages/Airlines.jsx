@@ -11,7 +11,7 @@ export default function Airlines() {
     const [showAirlineDropdown, setShowAirlineDropdown] = useState(false);
     const [flights, setFlights] = useState([]);
     const [flightsLoading, setFlightsLoading] = useState(false);
-    const API = process.env.REACT_APP_API_URL;
+    const API = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const fetchAirlines = async () => {
             try {
@@ -99,7 +99,7 @@ export default function Airlines() {
                         <p className="pageSubtitle">
                             You will only be able to search flights which are available in real-time, to check the api you can search any available airline of your choice.
                         </p>
-                        <p style={{ fontWeight: 'bold',color: '#b4b1b1ff' }}> sorry for the inconvenience caused as the complete data cannot be viewed due to the limitations of the api.</p>
+                        <p style={{ fontWeight: 'bold', color: '#b4b1b1ff' }}> sorry for the inconvenience caused as the complete data cannot be viewed due to the limitations of the api.</p>
                     </div>
                 </div>
 
