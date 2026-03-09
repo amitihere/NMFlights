@@ -9,7 +9,6 @@ import Features from './components/Features'
 import Maping from './services/Maping'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-
 function App() {
   return (
     <>
