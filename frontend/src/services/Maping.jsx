@@ -92,10 +92,10 @@ export default function Maping() {
           </p>
           <div className="community-btns">
             <button className="comm-btn login-btn" onClick={() => navigate('/login')}>
-              🔑 Login
+              Login
             </button>
             <button className="comm-btn signup-btn" onClick={() => navigate('/signup')}>
-              🚀 Sign Up
+              Sign Up
             </button>
           </div>
         </div>
