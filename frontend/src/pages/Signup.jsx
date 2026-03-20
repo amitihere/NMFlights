@@ -25,7 +25,8 @@ export default function Signup() {
             login({ username: form.username });
             setTimeout(() => navigate('/'), 2000);
         } catch (err) {
-            setMsg({ type: 'error', text: err.response?.data?.message || 'Signup failed. Please try again.' });
+            const errMsg = err.response?.data?.message || err.response?.data?.error || 'Signup failed. Please try again.';
+            setMsg({ type: 'error', text: errMsg });
         } finally {
             setLoading(false);
         }
