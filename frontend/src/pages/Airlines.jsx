@@ -44,7 +44,6 @@ export default function Airlines() {
         setFlightsLoading(true);
         try {
             const response = await axios.get(`${API}/api/reqFlights/airlines/${airline.iataCode}`);
-            // Get only top 30 flights
             const top30Flights = response.data.slice(0, 30);
             setFlights(top30Flights);
         } catch (err) {
